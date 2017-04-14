@@ -149,7 +149,7 @@ function addInteraction(geometry_type) {
         map.removeInteraction(draw);
         // 画完了就要进入 click 选取 的状态
         changeInteraction('click')
-      },100)
+      },300)
     })
 
   }
@@ -160,6 +160,11 @@ var drawendEvent = function(event) {
   // 先取得画出来的这个 feature
   var drawendFeature = event.feature
   // console.log('drawendFeature', drawendFeature);
+  // 给 feature 一个 id
+  var forms = JSON.parse(localStorage.messages)
+  console.log('forms.length', forms.length);
+  drawendFeature.setId(forms.length)
+
   // 取得鼠标当前的坐标，目前暂时发现了这个方法
   var mousePosition = document.querySelector('.ol-mouse-position').innerText
   mousePosition = mousePosition.split(",")
@@ -172,6 +177,8 @@ var drawendEvent = function(event) {
 var getFeaturesParameters = function(feature) {
   var geometry = feature.getGeometry() // 得到被选中元素的几何结构
   // console.log('selectedF geometry', geometry);
+  let id = feature.getId() // 得到被选中元素的几何结构
+  console.log('selectedF id', id);
   // 得到 feature 的类型
   var type = geometry.getType()
   // console.log('geometry type', type);
@@ -179,23 +186,23 @@ var getFeaturesParameters = function(feature) {
     case 'Point':
       var coordinates = geometry.getCoordinates()
       // console.log('selectedF geometry coordinates', coordinates);
-      return {type,coordinates}
+      return {id,type,coordinates}
       break;
     case 'LineString':
       var coordinates = geometry.getCoordinates()
       // console.log('selectedF geometry coordinates', coordinates);
-      return {type,coordinates}
+      return {id,type,coordinates}
       break;
     case 'Polygon':
       var coordinates = geometry.getCoordinates()
       // console.log('selectedF geometry coordinates', coordinates);
-      return {type,coordinates}
+      return {id,type,coordinates}
       break;
     case 'Circle':
       var center = geometry.getCenter()
       var radius = geometry.getRadius()
       // console.log('center radius', center, radius);
-      return {type,center,radius}
+      return {id,type,center,radius}
       break;
     default:
   }
@@ -212,8 +219,8 @@ var getInformation = function(parameters) {
   // 得到用户填写的数据
   // 定义 form
   var form = {
-    id: undefined,
-    title: e('#message-id').value,
+    id: parameters.id,
+    title: e('#message-title').value,
     message: e('#message-message').value,
     type: parameters.type,
     coordinates: parameters.coordinates,
@@ -225,13 +232,16 @@ var getInformation = function(parameters) {
   return form
 }
 
+if (localStorage.messages == undefined) {
+  localStorage.messages = '[]'
+}
 var saveMessage = function(form) {
   console.log('form', form);
-  if (localStorage.messages == undefined) {
+  var forms = JSON.parse(localStorage.messages)
+  if (Array.isArray(forms)) {
     localStorage.messages = '[]'
   }
-  var forms = JSON.parse(localStorage.messages)
-  let id = forms.length
+  let id = form.id
   forms[id] = form
   console.log('forms', forms);
   localStorage.messages = JSON.stringify(forms)
@@ -251,7 +261,7 @@ var requestMessage = function(drawendFeature, mousePosition) {
     'animation': false,
     'html': true,
     'content': `<p>
-      id: <input id="message-id" type="text" name="" value="">
+      title: <input id="message-title" type="text" name="" value="">
       message: <input id="message-message" type="text" name="" value="">
       <button id="commit-message" type="button" name="button">保存</button>
       <button id="cancel-message" type="button" name="button">取消</button>
@@ -261,18 +271,17 @@ var requestMessage = function(drawendFeature, mousePosition) {
 
   // 取得这个 feature 的各项参数
   var parameters = getFeaturesParameters(drawendFeature)
-  // console.log('parameters', parameters);
-
+  console.log('parameters', parameters);
 
   // 给输入弹窗绑定事件
   $('#cancel-message').one("click", function(event){
+    // 取消输入，会删掉 feature
     $messageElement.popover('destroy');
     featuresSource.removeFeature(drawendFeature)
   });
 
   $('#commit-message').one("click", function(event){
     var form = getInformation(parameters)
-    drawendFeature.setId(form.id)
     saveMessage(form)
   });
 }

@@ -69,73 +69,118 @@ var changeInteraction = function(select_type) {
 var popMessage = function(selectedF, popupElement, coordinate) {
   let id = selectedF.getId()
   console.log('id', id);
-  if (id == undefined || id == '') {
-    // 如果 id 不存在，则需要输入 id
-    requestMessage(selectedF, coordinate)
-  } else {
-    // 如果 id 存在，则弹出给定内容
-    var forms = JSON.parse(localStorage.messages)
-    var form = forms[id]
-    // displayMessage(id)
-    // console.log('selectedF geometry getProperties', coordinates);
-    // console.log('selectedF geometry getLayout', geometry.getLayout());
-    $(popupElement).popover('destroy');
-    popup.setPosition(coordinate);
+
+  // 如果 id 存在，则弹出给定内容
+  var forms = JSON.parse(localStorage.messages)
+  var form = forms[id]
+  // displayMessage(id)
+  // console.log('selectedF geometry getProperties', coordinates);
+  // console.log('selectedF geometry getLayout', geometry.getLayout());
+  let $popupElement = $(popupElement)
+  $popupElement.popover('destroy');
+  popup.setPosition(coordinate);
+  // the keys are quoted to prevent renaming in ADVANCED mode.
+  $popupElement.popover({
+    'placement': 'top',
+    'animation': false,
+    'html': true,
+    'content': `
+      <p>title: ${form.title}</p>
+      <p>message: ${form.message}</p>
+      <button data-id=${form.id} id="update-message" type="button" name="button">修改这个message</button>
+      <button data-id=${form.id} id="delete-message" type="button" name="button">删除这个message</button>
+    `
+    // '<p>The location you clicked was:</p><code>' + coordinate + '</code>'
+  });
+  $popupElement.popover('show');
+  $('#delete-message').one('click', function(e) {
+    $popupElement.popover('destroy');
+
+    console.log('删除这个message');
+    let target = e.target
+    let targetId = target.dataset.id
+    // console.log('targetId', targetId);
+    // console.log('selectedF', selectedF);
+    // 从界面删除
+    featuresSource.removeFeature(selectedF)
+    // 从数据库隐藏
+    // console.log('form', form);
+    form.available = false
+    // console.log('form', form);
+    console.log('forms', forms);
+    localStorage.messages = JSON.stringify(forms)
+  })
+
+  $('#update-message').one('click', function(e) {
+    console.log('修改这个message');
+    $popupElement.hide()
+
+    let target = e.target
+    let targetId = target.dataset.id
+    // console.log('targetId', targetId);
+    // console.log('selectedF', selectedF);
+    // 弹窗组件
+    $messageElement.popover('destroy');
+    message.setPosition(coordinate);
     // the keys are quoted to prevent renaming in ADVANCED mode.
-    $(popupElement).popover({
+    $messageElement.popover({
       'placement': 'top',
       'animation': false,
       'html': true,
-      'content': `
-        <p>id: ${form.id}</p>
-        <p>message: ${form.message}</p>
-        <button data-id=${form.id} id="update-message" type="button" name="button">修改这个message</button>
-        <button data-id=${form.id} id="delete-message" type="button" name="button">删除这个message</button>
-      `
-      // '<p>The location you clicked was:</p><code>' + coordinate + '</code>'
+      'content': `<p>
+        title: <input id="message-title" type="text" name="" value="${form.title}">
+        message: <input id="message-message" type="text" name="" value="${form.message}">
+        <button id="commit-message" type="button" name="button">保存</button>
+        <button id="cancel-message" type="button" name="button">取消</button>
+      </p>`
     });
-    $(popupElement).popover('show');
-    $('#delete-message').one('click', function(e) {
-      console.log('删除这个message');
-      let target = e.target
-      let targetId = target.dataset.id
-      // console.log('targetId', targetId);
-      // console.log('selectedF', selectedF);
-      // 从界面删除
-      featuresSource.removeFeature(selectedF)
+    $messageElement.popover('show');
+    // 给输入弹窗绑定事件
+    $('#cancel-message').on("click", function(event){
 
-      // 从数据库隐藏
+      // 取消输入，弹窗消失
+      $messageElement.popover('destroy');
+      $popupElement.show();
+
+    });
+    $('#commit-message').on("click", function(event){
+      // console.log('forms', forms);
+      // console.log('form', form);
+      // var form = getInformation(parameters)
+      form.title = $('#message-title').val()
+      form.message = $('#message-message').val()
+
+      // console.log('forms', forms);
       console.log('form', form);
-      form.available = false
-      console.log('form', form);
-      console.log('forms', forms);
+      // 因为都是 form 和 forms 都是指针，所以直接将 forms 保存到本地就好了
       localStorage.messages = JSON.stringify(forms)
 
-    })
+      $messageElement.popover('destroy');
 
-    $('#update-message').one('click', function(e) {
-      console.log('修改这个message');
-      let target = e.target
-      let targetId = target.dataset.id
-      // console.log('targetId', targetId);
-      // console.log('selectedF', selectedF);
-      // 弹出请求框
-      requestMessage(selectedF, coordinate)
+      $popupElement.show();
 
-      console.log('form', form);
-      $('#message-id').val(form.id)
-      $('#message-message').val(form.message)
+      $popupElement.popover('destroy');
+      popup.setPosition(coordinate);
 
+      $popupElement.popover({
+        'placement': 'top',
+        'animation': false,
+        'html': true,
+        'content': `
+          <p>title: ${form.title}</p>
+          <p>message: ${form.message}</p>
+          <button data-id=${form.id} id="update-message" type="button" name="button">修改这个message</button>
+          <button data-id=${form.id} id="delete-message" type="button" name="button">删除这个message</button>
+        `
+        // '<p>The location you clicked was:</p><code>' + coordinate + '</code>'
+      });
+      $popupElement.popover('show');
 
-      console.log('forms', forms);
-      localStorage.messages = JSON.stringify(forms)
+    });
 
+  })
 
-    })
-
-  }
 }
-
 
 
 /**
