@@ -93,7 +93,7 @@ var popMessage = function(selectedF, popupElement, coordinate) {
     // '<p>The location you clicked was:</p><code>' + coordinate + '</code>'
   });
   $popupElement.popover('show');
-  $('#delete-message').one('click', function(e) {
+  $('#delete-message').on('click', function(e) {
     $popupElement.popover('destroy');
 
     console.log('删除这个message');
@@ -111,7 +111,7 @@ var popMessage = function(selectedF, popupElement, coordinate) {
     localStorage.messages = JSON.stringify(forms)
   })
 
-  $('#update-message').one('click', function(e) {
+  $('#update-message').on('click', function(e) {
     console.log('修改这个message');
     $popupElement.hide()
 

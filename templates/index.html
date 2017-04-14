@@ -27,6 +27,7 @@
         <li data-type="Polygon">多边形</li>
         <li data-type="Circle">圆形</li>
         <li data-type="Box">矩形</li>
+        <li data-type="regularPolygon">正方形</li>
         <li data-type="freehand1">手绘</li>
       </ul>
     </div>
@@ -72,7 +73,13 @@
 
     var zoom = 27 - tierSize
     // 这样计算得到的 zoom 会加载第 10 层
-
+    var view = new ol.View({
+        center: center,
+        extent: extent,
+        zoom: zoom+1,
+        minZoom: zoom,
+        maxZoom: 17
+    })
     //创建地图
     var map = new ol.Map({
         // interactions: ol.interaction.defaults().extend([new app.Drag()]),
@@ -91,21 +98,15 @@
         interactions: ol.interaction.defaults().extend([
           new ol.interaction.PinchRotate()
         ]),
-        view: new ol.View({
-            center: center,
-            extent: extent,
-            zoom: zoom+1,
-            minZoom: zoom,
-            maxZoom: 17
-        }),
-        target: 'map'
+        view: view,
+        target: 'map',
     });
 
     // 图形界面自动适应屏幕大小
-    map.getView().fit(extent);
+    view.fit(extent);
     // 设置图层
-    // map.getView().setZoom(12);
-    // map.getView().setRotation(12*3.14/180);
+    // view.setZoom(12);
+    // view.setRotation(12*3.14/180);
 
 
 
@@ -136,5 +137,6 @@
     <script src="/static/js/draw_and_modify.js" charset="utf-8"></script>
     <script src="/static/js/select_and_pop.js" charset="utf-8"></script>
     <script src="/static/js/rightmouseclick.js" charset="utf-8"></script>
+    <script src="/static/js/flyto.js" charset="utf-8"></script>
   </body>
 </html>

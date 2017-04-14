@@ -33,25 +33,21 @@ var addNewFeature = function(form) {
       f = new ol.Feature({
         geometry: new ol.geom.Point(form.coordinates),
       })
-
       break;
     case 'LineString':
       f = new ol.Feature({
         geometry: new ol.geom.LineString(form.coordinates),
       })
-
       break;
     case 'Polygon':
       f = new ol.Feature({
         geometry: new ol.geom.Polygon(form.coordinates),
       })
-
       break;
     case 'Circle':
       f = new ol.Feature({
         geometry: new ol.geom.Circle(form.center, form.radius),
       })
-
       break;
     default:
   }
@@ -79,8 +75,6 @@ if (localStorage.messages != undefined) {
 }
 
 
-
-
 // ****************监听地图上的 feature 数量
 var listenerKey = featuresSource.on('change', function(){
     if (featuresSource.getState() === 'ready') {    // 判定是否加载完成
@@ -90,19 +84,6 @@ var listenerKey = featuresSource.on('change', function(){
     }
 });
 
-
-// ***************** modify section **yi************************
-// var modify = new ol.interaction.Modify({
-//   features: features,
-//   // the SHIFT key must be pressed to delete vertices, so
-//   // that new vertices can be drawn at the same position
-//   // of existing vertices
-//   deleteCondition: function(event) {
-//     return ol.events.condition.shiftKeyOnly(event) &&
-//         ol.events.condition.singleClick(event);
-//   }
-// });
-// map.addInteraction(modify);
 
 var draw; // global so we can remove it later
 // var drawTypeSelect = document.getElementById('draw-type');
@@ -130,6 +111,12 @@ function addInteraction(geometry_type) {
         features: features,
         type: 'Circle',
         geometryFunction: ol.interaction.Draw.createBox()
+      });
+    } else if (value == "regularPolygon") {
+      draw = new ol.interaction.Draw({
+        features: features,
+        type: 'Circle',
+        geometryFunction: ol.interaction.Draw.createRegularPolygon(4)
       });
 
     } else {
@@ -170,7 +157,7 @@ var drawendEvent = function(event) {
   mousePosition = mousePosition.split(",")
   // console.log('mousePosition', mousePosition);
   // 在鼠标位置弹出弹窗，请求输入信息
-  requestMessage(drawendFeature, mousePosition)
+  // requestMessage(drawendFeature, mousePosition)
 }
 
 

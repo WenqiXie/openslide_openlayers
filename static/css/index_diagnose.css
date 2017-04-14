@@ -3,7 +3,9 @@ html {
   width: 100%;
 }
 body {
+  position: relative;
   height: 90%;
+  padding-right: 60px;
   /*width: 80%;*/
 }
 ul {
@@ -35,9 +37,11 @@ li:hover {
   min-width: 180px;
 }
 .rightmouseclick {
-  display: none;
+  /*display: none;*/
   position: absolute;
-  width: 140px;
+  top: 0;
+  right: 0;
+  width: 60px;
   /*height: 350px;*/
   background-color: lightblue;
 }
