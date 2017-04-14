@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>OpenLayers example</title>
+    <link rel="stylesheet" href="/static/css/ol.css" type="text/css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/index_diagnose.css">
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <span id="status">&nbsp;0 selected features</span>
+    <div style="display: none;">
+      <!-- Clickable label for Vienna -->
+      <!-- <a id="vienna" class="overlay" target="_blank" href="http://en.wikipedia.org/wiki/Vienna">Vienna</a> -->
+      <div id="marker" title="Marker"></div>
+      <!-- Popup -->
+      <div id="popup" title="此处信息展示"></div>
+      <div id="message" title="请输入 id 和 描述"></div>
+    </div>
+    <div>矢量地图Feature总数： <span id="count"></span></div>
+
+    <!-- 鼠标右键弹出菜单 -->
+    <div class="rightmouseclick">
+      <ul class="geometry_menu">
+        <li data-type="Point">标记</li>
+        <li data-type="LineString">多段线</li>
+        <li data-type="Polygon">多边形</li>
+        <li data-type="Circle">圆形</li>
+        <li data-type="Box">矩形</li>
+        <li data-type="freehand1">手绘</li>
+      </ul>
+    </div>
+
+    <script src="/static/js/jquery-3.2.0.min.js" charset="utf-8"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/static/js/ol-debug.js" type="text/javascript"></script>
+    <!-- <script src="js/main/init.js" charset="utf-8"></script> -->
+    <script type="text/javascript">
+
+    var imgSize = [{{ width }},{{ height }}]
+    // console.log('imgSize', imgSize);
+    // 切出来 16 层
+    // imgSize = [44957, 139277]
+    // 切出来 18 层
+    var tierSize;
+    var tierSizeCalcule = function() {
+      let [width, height] = imgSize
+      let maxSize = Math.max(width, height)
+      // console.log('maxSize', maxSize);
+      let i = 0
+      // let r = Math.pow(2, i)
+      while (maxSize > Math.pow(2, i)) {
+        i++
+      }
+      // console.log('tierSize i', i);
+      tierSize = i
+      let resolution_max = Math.pow(2,i)
+      // console.log('resolution_max', resolution_max);
+    }
+
+    tierSizeCalcule()
+    // console.log('tierSize', tierSize);
+
+    // var imgSize = [36832*250, 38432*250]
+    // console.log('imgSize', imgSize);
+
+    // 确定中心
+    var center = [imgSize[0]/2, -imgSize[1]/2]
+    // console.log('center', center);
+    // 确定边界
+    var extent = [0, -imgSize[1], imgSize[0], 0];
+
+    var zoom = 27 - tierSize
+    // 这样计算得到的 zoom 会加载第 10 层
+
+    //创建地图
+    var map = new ol.Map({
+        // interactions: ol.interaction.defaults().extend([new app.Drag()]),
+        controls: ol.control.defaults().extend([
+          // new ol.control.FullScreen(),
+          new ol.control.MousePosition(),
+          // new ol.control.OverviewMap(),
+          new ol.control.ScaleLine(),
+          new ol.control.ZoomSlider({
+            maxResolution: 10000,
+          }),
+          // new ol.control.ZoomToExtent(),
+          new ol.control.Rotate(),
+          // new ol.control.Zoom()
+        ]),
+        interactions: ol.interaction.defaults().extend([
+          new ol.interaction.PinchRotate()
+        ]),
+        view: new ol.View({
+            center: center,
+            extent: extent,
+            zoom: zoom+1,
+            minZoom: zoom,
+            maxZoom: 17
+        }),
+        target: 'map'
+    });
+
+    // 图形界面自动适应屏幕大小
+    map.getView().fit(extent);
+    // 设置图层
+    // map.getView().setZoom(12);
+    // map.getView().setRotation(12*3.14/180);
+
+
+
+    // 资源加载的时候，要调 imgSize
+    imgSize[0] *= 250
+    imgSize[1] *= 250
+    // 添加一个使用离线瓦片地图的层
+    var offlineMapLayer = new ol.layer.Tile({
+        source: new ol.source.Zoomify({
+          size: imgSize,
+          // tierSizeCalculation: 'truncated',
+          // 设置本地离线瓦片所在路径，由于例子里面只有一张瓦片，页面显示时就只看得到一张瓦片。
+          url: '{{ slideurl }}/{z}/{x}_{y}.jpeg',
+          // url: 'images/c/Leica-2_files/{z}/{x}_{y}.jpeg',
+          // 注意 ol-debug.js 的源码需要修改，注释掉 ol-debug.js 的第 77179 那几行关于 URL 自动补全的那几行
+        })
+    });
+
+    map.addLayer(offlineMapLayer);
+
+
+    // url: 'images/CMU-1_files/{z}/{x}_{y}.jpeg',
+    var e = function(s) {
+      return document.querySelector(s)
+    }
+
+    </script>
+    <script src="/static/js/draw_and_modify.js" charset="utf-8"></script>
+    <script src="/static/js/select_and_pop.js" charset="utf-8"></script>
+    <script src="/static/js/rightmouseclick.js" charset="utf-8"></script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block head %}
+  {{ super() }}
+  <style media="screen">
+      .main-area {
+          margin-bottom: 340px;
+      }
+  </style>
+{% endblock %}
+{% block title %}主页{% endblock %}
+{% block content %}
+<div class="parallax-container">
+  <div class="parallax"><img src="http://imglf.nosdn.127.net/img/a0w1T01hSWwyYWNCK0FxcGR3STBaWHFLK3dJNjRvWi9vYURYMUpVVDFJNE1BOGNsS1BDMVpBPT0.png?imageView&thumbnail=1680x0&quality=96&stripmeta=0&type=jpg"></div>
+</div>
+<div class="section white">
+  <div class="row container">
+      <div class="">
+          <h1>病理库</h1>
+      </div>
+      <div class="col s6">
+          <form id="upload-form" action="{{ url_for('image.upload') }}" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                  <!-- <label for="file-picker">上传文件</label> -->
+                  <div class="file-field input-field">
+                    <div class="btn purple darken-4">
+                      <span><i class="material-icons left">input</i>文件</span>
+                      <input id="file-picker" type="file" name="file" multiple>
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                    </div>
+                  </div>
+                  <!-- <input id="file-picker" type="file" name="file" multiple> -->
+              </div>
+              <div id="msg"></div>
+              <button class="btn btn-default purple darken-4" type="submit" id="upload-button"><i class="material-icons left">cloud</i>上传</button>
+          </form>
+          <ul class="collection z-depth-2" style="margin-top: 1.5rem">
+              {% for entry in root_dir.children recursive %}
+                  {% if entry.url_path %}
+                      <a class="collection-item" href="{{ url_for('slide.slide', path=entry.url_path) }}">
+                          <!-- <h5> {{ entry.url_path }}</h5> -->
+                          <h4 class="text-ai-red"><span class="new badge yellow darken-3"></span>{{ entry.name }}</h4>
+                      </a>
+                  {% else %}
+                      {{ entry.name }}
+                  {% endif %}
+                      {% if entry.children %}
+                          <ul>
+                              {{ loop(entry.children) }}
+                          </ul>
+                      {% endif %}
+                      {% else %}
+                          <li class="none">None</li>
+              {% endfor %}
+          </ul>
+      </div>
+  </div>
+</div>
+<div class="parallax-container">
+  <div class="parallax"><img src="http://imglf.nosdn.127.net/img/a0w1T01hSWwyYWNCK0FxcGR3STBaWTU3RTFwMDVwaUhsZ3V5TTVTTFZWZ1VFSWRLT1EwemFBPT0.png?imageView&thumbnail=1680x0&quality=96&stripmeta=0&type=jpg"></div>
+</div>
+<footer style="margin-top: 0px" class="page-footer ai-red">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">DeepEye Lab</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">电话</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">地址</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">联系我们</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">关于我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            <span>Copyright © 2017 Awakening Inc. 保留所有权利。</span>
+            <a href="http://www.miitbeian.gov.cn/">鲁ICP备17000108号</a>
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+{% block script%}
+  {{ super() }}
+     <script type="text/javascript">
+         $(document).ready(function(){
+          $('.parallax').parallax();
+          $("#file-picker").change(function(){
+              var input = document.getElementById('file-picker');
+              for (var i=0; i<input.files.length; i++)
+              {
+              //koala.jpg, koala.JPG substring(index) lastIndexOf('a') koala.1.jpg
+                  var ext= input.files[i].name.substring(input.files[i].name.lastIndexOf('.')+1).toLowerCase()
+
+                  if ((ext == 'tiff') || (ext == 'svs'))
+                  {
+                      $("#msg").text("支持上传文件")
+                  }
+                  else
+                  {
+                      $("#msg").text("不支持上传文件")
+                      document.getElementById("file-picker").value ="";
+                  }
+              }
+          } );
+        });
+     </script>
+{% endblock %}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <title>
+        {% block title %}{% endblock %} - DeepEye Lab
+    </title>
+    {% block head %}
+        <link href="{{ url_for('static',filename='css/materialize.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script>
+            console.log('父模板的 log')
+        </script>
+        <style media="screen">
+            .ai-red {
+                /*color: #ee6e73;*/
+                background-color: #ee6e73
+            }
+            .text-ai-red {
+                color: #ee6e73
+            }
+        </style>
+        <!-- <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+        <link rel="bookmark" href="/static/img/favicon.ico"/> -->
+    {% endblock %}
+  </head>
+<body>
+    <nav class="ai-red">
+      <div class="nav-wrapper container">
+        <a href="/" class="brand-logo">DeepEye Lab</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/">Home</a></li>
+          <li><a href="/solutions">Solutions</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    {% block content %}
+
+    {% endblock %}
+</body>
+{% block script %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/openseadragon.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/openseadragon-scalebar.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/openseadragon-annotations.js') }}"></script>
+{% endblock %}
+</html>

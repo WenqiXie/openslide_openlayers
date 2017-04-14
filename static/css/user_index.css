@@ -1,0 +1,151 @@
+.headr{
+    width: 80%;
+    height: 100px;
+    background-color: #45c8dc;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    line-height: 100px;
+}
+.headr_l{
+    line-height: 97px;
+}
+.headr .headr_l  a{
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.headr_c{
+    width: 80%;
+    height: 100px;
+    margin: 0 auto;
+    line-height: 100px;
+    box-sizing: border-box;
+    padding-top: 20px;
+
+}
+.headr_r{
+    line-height: 100px;
+    padding-top: 30px;
+
+}
+.content{
+    /*height: 600px;*/
+    background-color: #f6f7f8;
+    margin: 0 auto;
+    margin-top: 3px;
+}
+
+.round{
+    border: 5px solid white;
+    width: 50px;
+    height: 50px;
+    border-radius:50%;
+    margin:0 auto;
+
+}
+.content_l{
+    height: 1000px;
+    border: 1px solid #e7e7e8;
+    padding-bottom: 20px;
+}
+.state{
+    text-align: center;
+    margin-top: 30px;
+
+}
+.state .name   {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+
+}
+
+.state .headimage{
+    width: 100px;
+
+    margin: 0 auto;
+    height: 100px;
+    box-sizing: content-box;
+    background: url("../images/headrimage.jpg") no-repeat -50px -50px;
+    border-radius: 50%;
+}
+.list{
+    margin:50px 20px 0px 20px;
+
+}
+.list div{
+    color: #aaa9a9;
+    width: 100%;
+    font-size: 16px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 10px;
+    margin-buttom: 10px;
+}
+.list i{
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.list div:hover{
+    background-color: #ffffff;
+    box-shadow: 2px 2px 2px #ccc;
+
+}
+.content_c{
+    width:55%;
+
+}
+.content_c{
+    /*padding: 20px 20px 20px 10px;*/
+    border-right: 1px solid #cccccc;
+
+}
+.content_c_h{
+    width: 100%;
+    margin-top: 20px;
+    border-bottom: 1px solid #cccccc;
+}
+.content_c_h div{
+    text-align: center;
+    height: 40px;
+    color: #aaa9a9;
+    font-size: 18px;
+
+
+}
+.content_c_h div:hover{
+    color: #000000;
+    border-bottom: 2px solid seagreen ;
+}
+.echarts{
+    width: 90%;
+    height: 200px;
+    background: url("../images/echarts.png") no-repeat 0px -100px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+
+}
+.box1{
+    width: 90%;
+    height: 200px;
+    background: url("../images/407755181744442435_03.png") no-repeat ;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+}
+.location{
+    color: #cccccc;
+    font-size: 16px;
+    font-weight:normal;
+}
+.hand:hover {
+    cursor: pointer;
+}

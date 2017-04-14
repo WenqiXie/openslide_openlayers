@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/static/css/user_index_base.css">
+    <link rel="stylesheet" href="/static/css/user_index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<!--头部部分-->
+<nav class="ai-red">
+  <div class="nav-wrapper container">
+    <a href="/" class="brand-logo">DeepEye Lab</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="/">Home</a></li>
+      <li><a href="/solutions">Solutions</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<!--内容部分-->
+<div class="content w80 clearfix">
+    <div class="content_l fl w20">
+
+        <div class="state">
+            <div class='headimage'></div>
+
+            <p class='name'>{{ username }}</p>
+            <p class='location'>{{ created_time }}</p>
+        </div>
+        <div class='list'>
+                <div class='hand'>Activity <i class='small material-icons text-darken-2 fr'>trending_up</i></div>
+                <div class='hand'>Doctors
+                    <i class='small material-icons fr'>perm_identity</i></div>
+                <div class='hand'>Calender <i class='small material-icons fr'>picture_in_picture</i></div>
+                <div class='hand'>Messages <i class='small material-icons fr'>comment</i></div>
+                <div class='hand'>Community <i class='small material-icons fr'>supervisor_account</i></div>
+        </div>
+
+    </div>
+    <div class="content_c fl">
+        <div class="content_c_h clearfix">
+            <div class='fl w33'>Hearty</div>
+            <div class='fl w33'>Pressure</div>
+            <div class='fl w33'>Calor</div>
+        </div>
+        <div class='echarts'></div>
+
+        <div class='box1'></div>
+        <div class='box1'></div>
+        <div class='box1'></div>
+    </div>
+    <div class="content_r fr w20">
+
+    </div>
+</div>
+</body>
+</html>

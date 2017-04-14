@@ -1,0 +1,47 @@
+body {
+    background: #ef9a9a   ;
+    font-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.wrap
+{
+    width:70%;
+    margin:5.2% auto 4% auto;
+}
+.logo
+{
+    text-align: center;
+    padding: 1% 1% 5% 1%;
+}
+.logo h1{
+    display: block;
+    padding: 2em 0em;
+}
+.logo h1 img{
+    margin-top: -70px;
+}
+
+.buttom
+{
+    background:url(../images/bg2.png) no-repeat 100% 0%;
+    background-size: 100%;
+    text-align: center;
+    vertical-align: middle;
+    margin: -15em auto;
+    width: 556px;
+    height: 550px;
+}
+.brand_bar
+{
+    padding:2em;
+}
+.brand_bar span{
+    font-size: 2em;
+    color:#fff;
+    position: absolute;
+    margin-top: 100px;
+    margin-left: -260px;
+}
+

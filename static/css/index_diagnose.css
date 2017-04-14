@@ -1,0 +1,46 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  height: 90%;
+  /*width: 80%;*/
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  margin: 5px auto;
+  padding-left: 10px;
+  cursor: pointer;
+}
+li:hover {
+  background-color: #6ac9e8;
+}
+.map {
+  height: 100%;
+  width: 100%;
+}
+#marker {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #088;
+  border-radius: 10px;
+  background-color: #0FF;
+  opacity: 0.5;
+}
+.popover-content {
+  min-width: 180px;
+}
+.rightmouseclick {
+  display: none;
+  position: absolute;
+  width: 140px;
+  /*height: 350px;*/
+  background-color: lightblue;
+}
+.ol-attribution > ul > li > a {
+  display: none;
+}

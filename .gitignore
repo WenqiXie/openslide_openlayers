@@ -1,0 +1,11 @@
+/routes
+/__pycache__
+images
+*.debug
+*.dll
+/models
+*.exe
+fonts
+*.py
+*.jar
+openseadragon*
