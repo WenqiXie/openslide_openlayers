@@ -36,6 +36,14 @@ li:hover {
 .popover-content {
   min-width: 180px;
 }
+#id-delete-feature {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+
+}
 .rightmouseclick {
   /*display: none;*/
   position: absolute;

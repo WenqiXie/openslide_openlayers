@@ -25,6 +25,12 @@ var featureOverlay = new ol.layer.Vector({
 });
 featureOverlay.setMap(map);
 
+// 将 message 加入覆盖层
+var message = new ol.Overlay({
+  element: document.getElementById('message')
+});
+map.addOverlay(message);
+
 // 添加 feature 的方法，其实 Point
 var addNewFeature = function(form) {
   var f;
@@ -56,23 +62,25 @@ var addNewFeature = function(form) {
   featuresSource.addFeature(f);
 }
 
+if (localStorage.messages == undefined) {
+  localStorage.messages = '[]'
+}
+var getForms = function() {
+  return JSON.parse(localStorage.messages)
+}
 
+var forms = getForms()
 // 把当前已经存在的 features 加载进来
-if (localStorage.messages != undefined) {
-  var addFeatures = function() {
-    let forms = JSON.parse(localStorage.messages)
-    console.log('forms', forms);
-    for (let k in forms) {
-      // console.log(k);
-      // console.log(forms[k]);
-      let form = forms[k]
-      if (form.available) {
-        addNewFeature(form)
-      }
+var addFeatures = function() {
+  // console.log('forms', forms);
+  for (let form of forms) {
+    // console.log(form);
+    if (form.available) {
+      addNewFeature(form)
     }
   }
-  addFeatures()
 }
+addFeatures()
 
 
 // ****************监听地图上的 feature 数量
@@ -102,7 +110,7 @@ function addInteraction(geometry_type) {
         // snapTolerance: 80,
         // 修改了 63328 那几行的源码，可以优化自由手绘的效果
         features: features,
-        type: 'LineString',
+        type: 'Polygon',
         freehand: true
       });
 
@@ -127,37 +135,10 @@ function addInteraction(geometry_type) {
 
     }
     map.addInteraction(draw);
-
     // 注册事件，判断是否画完，画完则触发响应函数
-    draw.on('drawend', function(event) {
-      // console.log('drawend event', event);
-      drawendEvent(event)
-      setTimeout(function() {
-        map.removeInteraction(draw);
-        // 画完了就要进入 click 选取 的状态
-        changeInteraction('click')
-      },300)
-    })
+    draw.on('drawend', drawendEvent)
 
   }
-}
-
-
-var drawendEvent = function(event) {
-  // 先取得画出来的这个 feature
-  var drawendFeature = event.feature
-  // console.log('drawendFeature', drawendFeature);
-  // 给 feature 一个 id
-  var forms = JSON.parse(localStorage.messages)
-  console.log('forms.length', forms.length);
-  drawendFeature.setId(forms.length)
-
-  // 取得鼠标当前的坐标，目前暂时发现了这个方法
-  var mousePosition = document.querySelector('.ol-mouse-position').innerText
-  mousePosition = mousePosition.split(",")
-  // console.log('mousePosition', mousePosition);
-  // 在鼠标位置弹出弹窗，请求输入信息
-  // requestMessage(drawendFeature, mousePosition)
 }
 
 
@@ -171,44 +152,29 @@ var getFeaturesParameters = function(feature) {
   // console.log('geometry type', type);
   switch (type) {
     case 'Point':
-      var coordinates = geometry.getCoordinates()
-      // console.log('selectedF geometry coordinates', coordinates);
-      return {id,type,coordinates}
-      break;
     case 'LineString':
-      var coordinates = geometry.getCoordinates()
-      // console.log('selectedF geometry coordinates', coordinates);
-      return {id,type,coordinates}
-      break;
     case 'Polygon':
-      var coordinates = geometry.getCoordinates()
-      // console.log('selectedF geometry coordinates', coordinates);
-      return {id,type,coordinates}
-      break;
+    var coordinates = geometry.getCoordinates()
+    // console.log('selectedF geometry coordinates', coordinates);
+    return {id,type,coordinates}
+    break;
     case 'Circle':
-      var center = geometry.getCenter()
-      var radius = geometry.getRadius()
-      // console.log('center radius', center, radius);
-      return {id,type,center,radius}
-      break;
+    var center = geometry.getCenter()
+    var radius = geometry.getRadius()
+    // console.log('center radius', center, radius);
+    return {id,type,center,radius}
+    break;
     default:
   }
 }
-
-// 将 message 加入覆盖层
-var message = new ol.Overlay({
-  element: document.getElementById('message')
-});
-map.addOverlay(message);
-
 
 var getInformation = function(parameters) {
   // 得到用户填写的数据
   // 定义 form
   var form = {
     id: parameters.id,
-    title: e('#message-title').value,
-    message: e('#message-message').value,
+    title: '',
+    message: '',
     type: parameters.type,
     coordinates: parameters.coordinates,
     center: parameters.center,
@@ -219,70 +185,38 @@ var getInformation = function(parameters) {
   return form
 }
 
-if (localStorage.messages == undefined) {
-  localStorage.messages = '[]'
-}
-var saveMessage = function(form) {
-  console.log('form', form);
-  var forms = JSON.parse(localStorage.messages)
-  if (Array.isArray(forms)) {
-    localStorage.messages = '[]'
-  }
-  let id = form.id
-  forms[id] = form
-  console.log('forms', forms);
+var saveForms = function(forms) {
   localStorage.messages = JSON.stringify(forms)
-  // 弹窗关闭
-  $messageElement.popover('destroy');
 }
 
+var drawendEvent = function(event) {
+  // 先取得画出来的这个 feature
+  var drawendFeature = event.feature
+  // console.log('drawendFeature', drawendFeature);
+  // 给 feature 一个 id
+  let id = forms.length
+  console.log('id', id);
+  drawendFeature.setId(id)
 
-var $messageElement = $('#message')
-var requestMessage = function(drawendFeature, mousePosition) {
-  // 弹窗初始化
-  $messageElement.popover('destroy');
-  message.setPosition(mousePosition);
-  // the keys are quoted to prevent renaming in ADVANCED mode.
-  $messageElement.popover({
-    'placement': 'top',
-    'animation': false,
-    'html': true,
-    'content': `<p>
-      title: <input id="message-title" type="text" name="" value="">
-      message: <input id="message-message" type="text" name="" value="">
-      <button id="commit-message" type="button" name="button">保存</button>
-      <button id="cancel-message" type="button" name="button">取消</button>
-    </p>`
-  });
-  $messageElement.popover('show');
+  // 然后取得 参数
+  let parameters = getFeaturesParameters(drawendFeature)
 
-  // 取得这个 feature 的各项参数
-  var parameters = getFeaturesParameters(drawendFeature)
-  console.log('parameters', parameters);
+  let form = getInformation(parameters)
+  // 然后直接保存这个 feature 到数据库
+  forms[id] = form
+  saveForms(forms)
 
-  // 给输入弹窗绑定事件
-  $('#cancel-message').one("click", function(event){
-    // 取消输入，会删掉 feature
-    $messageElement.popover('destroy');
-    featuresSource.removeFeature(drawendFeature)
-  });
+  // 取得鼠标当前的坐标，目前暂时发现了这个方法
+  var mousePosition = document.querySelector('.ol-mouse-position').innerText
+  mousePosition = mousePosition.split(",")
+  // console.log('mousePosition', mousePosition);
+  // 在鼠标位置弹出弹窗，请求输入信息
+  // requestMessage(drawendFeature, mousePosition)
+  // 再把状态更改一下
+  setTimeout(function() {
+    map.removeInteraction(draw);
+    // 画完了就要进入 click 选取 的状态
+    changeInteraction('click')
+  },100)
 
-  $('#commit-message').one("click", function(event){
-    var form = getInformation(parameters)
-    saveMessage(form)
-  });
 }
-
-
-
-/**
- * Handle change event.
- */
-geometry_menu.addEventListener('click', function(event) {
-  let target = event.target
-  // console.log('target', target);
-})
-
-
-// 把交互功能激活
-// addInteraction();

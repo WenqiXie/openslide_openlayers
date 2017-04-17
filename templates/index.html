@@ -31,7 +31,9 @@
         <li data-type="freehand1">手绘</li>
       </ul>
     </div>
-
+    <div id="id-delete-feature">
+      <button type="button" name="button">删除</button>
+    </div>
     <script src="/static/js/jquery-3.2.0.min.js" charset="utf-8"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/static/js/ol-debug.js" type="text/javascript"></script>
@@ -78,7 +80,7 @@
         extent: extent,
         zoom: zoom+1,
         minZoom: zoom,
-        maxZoom: 17
+        maxZoom: 18
     })
     //创建地图
     var map = new ol.Map({
@@ -89,7 +91,7 @@
           // new ol.control.OverviewMap(),
           new ol.control.ScaleLine(),
           new ol.control.ZoomSlider({
-            maxResolution: 10000,
+            // maxResolution: 10000,
           }),
           // new ol.control.ZoomToExtent(),
           new ol.control.Rotate(),
@@ -134,7 +136,7 @@
     }
 
     </script>
-    <script src="/static/js/draw_and_modify.js" charset="utf-8"></script>
+    <script src="/static/js/draw.js" charset="utf-8"></script>
     <script src="/static/js/select_and_pop.js" charset="utf-8"></script>
     <script src="/static/js/rightmouseclick.js" charset="utf-8"></script>
     <script src="/static/js/flyto.js" charset="utf-8"></script>

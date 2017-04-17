@@ -62902,6 +62902,8 @@ ol.source.Vector.prototype.removeFeature = function(feature) {
  */
 ol.source.Vector.prototype.removeFeatureInternal = function(feature) {
   var featureKey = ol.getUid(feature).toString();
+  // console.log('this.featureChangeKeys_[featureKey]', this.featureChangeKeys_[featureKey]);
+  // console.log('this.featureChangeKeys_', this.featureChangeKeys_);
   this.featureChangeKeys_[featureKey].forEach(ol.events.unlistenByKey);
   delete this.featureChangeKeys_[featureKey];
   var id = feature.getId();
