@@ -56,3 +56,42 @@ li:hover {
 .ol-attribution > ul > li > a {
   display: none;
 }
+.zoom-plugins {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    top: 28rem;
+    left: .5rem;
+    position: absolute;
+    padding: 2px;
+    border-radius: 4px;
+    position: absolute;
+    background-color: rgba(255,255,255,.4);
+    border-radius: 4px;
+    padding: 2px;
+    margin-left: .4rem;
+}
+.zoom-btn {
+    display: block;
+    margin: 1px;
+    padding: 0;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    height: 1.5em;
+    width: 2.2em;
+    line-height: .4em;
+    background-color: rgba(0,60,136,.5);
+    border: none;
+    border-radius: 2px;
+}
+.zoom-btn:hover {
+    background-color: rgba(0,60,136, 0.7);
+}
+#id-range-rotate {
+  position: absolute;
+  top: 5px;
+  left: 50px;
+  width: 200px;
+}

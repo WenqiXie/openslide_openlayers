@@ -1,0 +1,168 @@
+@charset "utf-8";
+@import "variable";
+@import "base";
+@import 'common';
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  position: relative;
+  height: 90%;
+  padding-right: 60px;
+  /*width: 80%;*/
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  margin: 5px auto;
+  padding-left: 10px;
+  cursor: pointer;
+}
+li:hover {
+  background-color: #6ac9e8;
+}
+.map {
+  height: 100%;
+  width: 100%;
+}
+#marker {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #088;
+  border-radius: 10px;
+  background-color: #0FF;
+  opacity: 0.5;
+}
+
+.popover.top {
+  width: 40%;
+  max-width: 580px;
+  min-width: 340px;
+  // height: 280px;
+  // margin: 0;
+  // padding: 30px;
+  background-color: $white;
+  border: 1px solid $gray-2;
+  border-radius: $radius;
+  -webkit-box-shadow: 0 15px 40px 0 rgba(63,48,48,0.3);
+  box-shadow: 0 15px 40px 0 rgba(63,48,48,0.3);
+  > .popover-content {
+    margin: 0;
+    padding: 0;
+    p:nth-of-type(1) {
+      margin-top: 10px;
+      margin-bottom: 16px;
+    }
+    p:nth-of-type(2) {
+      margin-bottom: 60px;
+    }
+    input {
+      background-color: $white;
+      border-bottom: 1px solid $gray-2;
+      width: 100%;
+    }
+    button:nth-of-type(1) {
+      // 这是右上角的横线那个
+      // 对应的 html 在 select_and_pop.js 里面
+      // 函数 popMessage 里面
+      // 160 行左右，popover 里面
+      position: absolute;
+      right: 30px;
+      top: 15px;
+      width: 20px;
+      height: 20px;
+      background-color: $red;
+      border: 0;
+      border-radius: 50%;
+      text-align: center;
+      > div {
+        // 这是里面那一横
+        margin: auto;
+        width: 10px;
+        height: 2px;
+        background-color: $white;
+      }
+    }
+    button:nth-of-type(2) {
+      position: absolute;
+      right: 30px;
+      bottom: 30px;
+      width: 60px;
+      height: 30px;
+      font-size: 14px;
+      background-color: $red;
+      color: $white;
+      border: 0;
+      border-radius: 15px;
+      -webkit-box-shadow: 0 2px 0 0 rgba(0,0,0,0.1);
+      box-shadow: 0 2px 0 0 rgba(0,0,0,0.1);
+      &:active {
+        background-color: $white;
+        color: $red;
+      }
+    }
+  }
+}
+
+#id-delete-feature {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+}
+.rightmouseclick {
+  /*display: none;*/
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  /*height: 350px;*/
+  background-color: lightblue;
+}
+.ol-attribution > ul > li > a {
+  display: none;
+}
+.zoom-plugins {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    top: 28rem;
+    left: .5rem;
+    position: absolute;
+    padding: 2px;
+    border-radius: 4px;
+    position: absolute;
+    background-color: rgba(255,255,255,.4);
+    border-radius: 4px;
+    padding: 2px;
+    margin-left: .4rem;
+}
+.zoom-btn {
+    display: block;
+    margin: 1px;
+    padding: 0;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    height: 1.5em;
+    width: 2.2em;
+    line-height: .4em;
+    background-color: rgba(0,60,136,.5);
+    border: none;
+    border-radius: 2px;
+}
+.zoom-btn:hover {
+    background-color: rgba(0,60,136, 0.7);
+}
+#id-range-rotate {
+  position: absolute;
+  top: 5px;
+  left: 50px;
+  width: 200px;
+}

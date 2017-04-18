@@ -62,14 +62,20 @@ var addNewFeature = function(form) {
   featuresSource.addFeature(f);
 }
 
-if (localStorage.messages == undefined) {
-  localStorage.messages = '[]'
-}
 var getForms = function() {
-  return JSON.parse(localStorage.messages)
+  if (localStorage.messages == undefined || localStorage.messages == 'undefined') {
+    localStorage.messages = '[]'
+  }
+  var forms = JSON.parse(localStorage.messages)
+  if (!Array.isArray(forms)) {
+    localStorage.messages = '[]'
+  }
+  forms = JSON.parse(localStorage.messages)
+  return forms
 }
 
 var forms = getForms()
+// console.log('forms', forms);
 // 把当前已经存在的 features 加载进来
 var addFeatures = function() {
   // console.log('forms', forms);
@@ -95,8 +101,6 @@ var listenerKey = featuresSource.on('change', function(){
 
 var draw; // global so we can remove it later
 // var drawTypeSelect = document.getElementById('draw-type');
-
-var geometry_menu = document.querySelector('.geometry_menu')
 
 function addInteraction(geometry_type) {
   let value = geometry_type
@@ -146,7 +150,7 @@ var getFeaturesParameters = function(feature) {
   var geometry = feature.getGeometry() // 得到被选中元素的几何结构
   // console.log('selectedF geometry', geometry);
   let id = feature.getId() // 得到被选中元素的几何结构
-  console.log('selectedF id', id);
+  // console.log('selectedF id', id);
   // 得到 feature 的类型
   var type = geometry.getType()
   // console.log('geometry type', type);
@@ -181,7 +185,7 @@ var getInformation = function(parameters) {
     radius: parameters.radius,
     available: true,
   }
-  console.log('获取的form：', form)
+  // console.log('获取的form：', form)
   return form
 }
 
@@ -195,7 +199,7 @@ var drawendEvent = function(event) {
   // console.log('drawendFeature', drawendFeature);
   // 给 feature 一个 id
   let id = forms.length
-  console.log('id', id);
+  // console.log('id', id);
   drawendFeature.setId(id)
 
   // 然后取得 参数
@@ -213,10 +217,14 @@ var drawendEvent = function(event) {
   // 在鼠标位置弹出弹窗，请求输入信息
   // requestMessage(drawendFeature, mousePosition)
   // 再把状态更改一下
-  setTimeout(function() {
-    map.removeInteraction(draw);
-    // 画完了就要进入 click 选取 的状态
-    changeInteraction('click')
-  },100)
+  // console.log('form.type', form.type);
+  if (form.type != 'Point') {
+    setTimeout(function() {
+      map.removeInteraction(draw);
+      // 画完了就要进入 click 选取 的状态
+      changeInteraction('click')
+    },100)
+
+  }
 
 }

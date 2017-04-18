@@ -1,0 +1,40 @@
+@import "variable";
+
+html {
+  font-size: 14px;
+}
+.h1 {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: $black-1;
+}
+.h2 {
+  font-size: 1.28rem;
+  font-weight: bold;
+  color: $black-1;
+}
+.h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: $black-1;
+}
+.sub1 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: $gray-2;
+}
+.sub2 {
+  font-size: 1rem;
+  font-weight: normal;
+  color: $black-1;
+}
+.sub3 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: $red;
+}
+.sub4 {
+  font-size: 0.86rem;
+  font-weight: bold;
+  color: $gray-2;
+}

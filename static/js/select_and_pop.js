@@ -31,7 +31,7 @@ var changeInteraction = function(select_type) {
   if (select !== null) {
     map.addInteraction(select);
     select.on('select', function(e) {
-      console.log('触发 select');
+      // console.log('触发 select');
       // 这一段是用来说明有几个元素被选取，有几个元素失去选取
       document.getElementById('status').innerHTML = '&nbsp;' +
           e.target.getFeatures().getLength() +
@@ -52,13 +52,13 @@ var selectEvent = function(e) {
   // pop 功能
   // 显示地图上的坐标
   var coordinate = e.mapBrowserEvent.coordinate;
-  console.log('e', e);
-  console.log('e.selected', e.selected);
+  // console.log('e', e);
+  // console.log('e.selected', e.selected);
   // e.selected = []
   // console.log('e.selected', e.selected);
 
-  console.log('e.target', e.target);
-  console.log('e.target.getFeatures()', e.target.getFeatures());
+  // console.log('e.target', e.target);
+  // console.log('e.target.getFeatures()', e.target.getFeatures());
   var selectedFeatures = e.target.getFeatures().getArray()
 
   if (e.selected.length == 1) {
@@ -77,7 +77,7 @@ var selectEvent = function(e) {
 
 
   featuresSource.on('removefeature', function() {
-    console.log('removefeature');
+    // console.log('removefeature');
     // changeInteraction('none')
     // setTimeout(function() {
     //   changeInteraction('click')
@@ -108,9 +108,10 @@ var selectedDelete = function(selectedFeatures) {
 
     $('canvas').off('contextmenu', rigthClickEvent)
     $('canvas').on('contextmenu', deleteEvent)
+    $('.popover.top.in').on('contextmenu', deleteEvent)
 
   } else {
-    console.log('e.selected.length', selectedFeatures.length);
+    // console.log('e.selected.length', selectedFeatures.length);
     $('canvas').off('contextmenu', deleteEvent)
     $('canvas').on('contextmenu', rigthClickEvent)
 
@@ -142,7 +143,7 @@ var popMessage = function(id, coordinate) {
   forms = getForms()
   // var forms = getForms()
   var form = forms[id]
-
+  // console.log('form', form);
   let $popupElement = $(popupElement)
   $popupElement.popover('destroy');
   popup.setPosition(coordinate);
@@ -154,6 +155,7 @@ var popMessage = function(id, coordinate) {
     'content': `
       <p>title: ${form.title}</p>
       <p>message: ${form.message}</p>
+      <button data-id=${form.id} id="close-message" type="button" name="button"><div></div></button>
       <button data-id=${form.id} id="update-message" type="button" name="button">编辑</button>
     `
     // <button data-id=${form.id} id="delete-message" type="button" name="button">删除这个message</button>
@@ -183,16 +185,26 @@ var popEndEvent = function(id, popupElement, coordinate) {
     $messageElement.popover('destroy');
     message.setPosition(coordinate);
     // the keys are quoted to prevent renaming in ADVANCED mode.
+    if (form.title == "") {
+      // title =
+    } else {
+
+    }
+    if (form.message == "") {
+
+    } else {
+
+    }
     $messageElement.popover({
       'placement': 'top',
       'animation': false,
       'html': true,
-      'content': `<p>
-        title: <input id="message-title" type="text" name="" value="${form.title}">
-        message: <input id="message-message" type="text" name="" value="${form.message}">
+      'content': `<div>
+        <p><input id="message-title" type="text" name="" value="${form.title}"></p>
+        <p><input id="message-message" type="text" name="" value="${form.message}"></p>
+        <button data-id=${id} id="cancel-message" type="button" name="button"><div></div></button>
         <button id="commit-message" type="button" name="button">保存</button>
-        <button id="cancel-message" type="button" name="button">取消</button>
-      </p>`
+      </div>`
     });
     $messageElement.popover('show');
 
