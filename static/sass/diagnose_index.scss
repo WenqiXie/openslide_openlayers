@@ -39,10 +39,10 @@ li:hover {
 }
 
 .popover.top {
-  width: 40%;
+  // width: 40%;
   max-width: 580px;
-  min-width: 340px;
-  // height: 280px;
+  min-width: 300px;
+  min-height: 200px;
   // margin: 0;
   // padding: 30px;
   background-color: $white;
@@ -51,17 +51,15 @@ li:hover {
   -webkit-box-shadow: 0 15px 40px 0 rgba(63,48,48,0.3);
   box-shadow: 0 15px 40px 0 rgba(63,48,48,0.3);
   > .popover-content {
-    margin: 0;
+    margin: 45px 30px 90px;
     padding: 0;
     p:nth-of-type(1) {
       margin-top: 10px;
       margin-bottom: 16px;
     }
-    p:nth-of-type(2) {
-      margin-bottom: 60px;
-    }
-    input {
+    textarea {
       background-color: $white;
+      border: 0;
       border-bottom: 1px solid $gray-2;
       width: 100%;
     }

@@ -152,8 +152,8 @@ var popMessage = function(id, coordinate) {
     'placement': 'top',
     'animation': false,
     'html': true,
+    'selector': false,
     'content': `
-      <p>title: ${form.title}</p>
       <p>message: ${form.message}</p>
       <button data-id=${form.id} id="close-message" type="button" name="button"><div></div></button>
       <button data-id=${form.id} id="update-message" type="button" name="button">编辑</button>
@@ -163,6 +163,12 @@ var popMessage = function(id, coordinate) {
   });
 
   $popupElement.popover('show');
+
+  $('#close-message').on("click", function(event){
+    // 取消输入，弹窗消失
+    console.log('close-message');
+    $popupElement.popover('destroy');
+  });
 
   popEndEvent(id, popupElement, coordinate)
 
@@ -174,8 +180,8 @@ var popEndEvent = function(id, popupElement, coordinate) {
   let $popupElement = $(popupElement)
   var form = forms[id]
   $('#update-message').on('click', function(e) {
-    console.log('修改这个message');
-    $popupElement.hide()
+    console.log('编辑这个message');
+    // $popupElement.popover('hide');
 
     let target = e.target
     let targetId = target.dataset.id
@@ -195,32 +201,31 @@ var popEndEvent = function(id, popupElement, coordinate) {
     } else {
 
     }
+    console.log('form', form);
+    console.log('form.message', form.message);
     $messageElement.popover({
       'placement': 'top',
       'animation': false,
       'html': true,
+      'selector': false,
       'content': `<div>
-        <p><input id="message-title" type="text" name="" value="${form.title}"></p>
-        <p><input id="message-message" type="text" name="" value="${form.message}"></p>
-        <button data-id=${id} id="cancel-message" type="button" name="button"><div></div></button>
+        <p><textarea id="message-message" type="text" name=""></textarea></p>
+        <button data-id=${id} id="close-message1" type="button" name="button"><div></div></button>
         <button id="commit-message" type="button" name="button">保存</button>
       </div>`
     });
     $messageElement.popover('show');
-
-
-
+    $("#message-message").val(form.message)
     // 给输入弹窗绑定事件
-    $('#cancel-message').on("click", function(event){
+    $('#close-message1').on("click", function(event){
       // 取消输入，弹窗消失
+      console.log('close-message');
       $messageElement.popover('destroy');
-      $popupElement.show();
     });
 
     // 给保存按钮绑定事件
     $('#commit-message').on("click", function(event){
 
-      form.title = $('#message-title').val()
       form.message = $('#message-message').val()
       // console.log('forms', forms);
       console.log('form', form);
@@ -229,15 +234,15 @@ var popEndEvent = function(id, popupElement, coordinate) {
 
       $messageElement.popover('destroy');
 
-      let $content = $('.popover-content')
-      console.log('content', $content);
-      console.log('$content.children(p)', $content.children('p'));
-      $content.children('p').eq(0).text('title: ' + form.title)
-      $content.children('p').eq(1).text('message: ' + form.message)
+      // $popupElement.popover('show');
 
-      $popupElement.show();
+      let $content = $('.popover-content')
+      // console.log('content', $content);
+      // console.log('$content.children(p)', $content.children('p'));
+      $content.children('p').eq(0).text('message: ' + form.message)
 
     });
+
   })
 }
 
