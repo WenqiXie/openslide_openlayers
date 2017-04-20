@@ -2,29 +2,119 @@
 @import "variable";
 @import "base";
 @import 'common';
+@import "mixin";
+
 html {
   height: 100%;
   width: 100%;
 }
 body {
   position: relative;
-  height: 90%;
+  height: 95%;
   padding-right: 60px;
-  /*width: 80%;*/
 }
-.geometry_menu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  li {
-    margin: 5px auto;
-    padding-left: 10px;
+.search {
+  position: absolute;
+  top: 2.7%;
+  right: 45px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 17.7%;
+  min-width: 220px;
+  height: 2.7%;
+  min-height: 30px;
+  background: $white;
+  box-shadow:0 2px 0 0 rgba(0,0,0,0.10);
+  border-radius:98px;
+  input {
+    width: 100%;
+    height: 100%;
+    background: $white;
+  }
+  svg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 7px;
+    height: 100%;
+    .cls-1 {
+      stroke: $black-1;
+    }
     cursor: pointer;
   }
 }
-li:hover {
-  background-color: #6ac9e8;
+// 右键菜单部分
+ul.geometry_menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  top: 14.6%;
+  right: 45px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 60px;
+  // width: 2.08%;
+  // min-width: 40px;
+  height:380px;
+  background-color: $black-1;
+  border-radius:2px;
+  li {
+    position: relative;
+    width: 100%;
+    height: calc(1 / 7 * 100%);
+    margin: auto;
+    color: $white;
+    cursor: pointer;
+    text-align: center;
+    @include svg;
+  }
+  li:nth-of-type(1) svg {
+    margin-top: 7px;
+  }
 }
+
+// 颜色选择
+// 注释
+// 删除
+.function-list {
+  position: absolute;
+  top: calc(14.6% + 390px);
+  right: 45px;
+  width: 60px;
+  // width: 2.08%;
+  // min-width: 40px;
+  $list-space: 70px;
+  .pointer {
+    position: relative;
+    margin-bottom: 8px;
+    width: 60px;
+    height: 60px;
+    background-color: $black-1;
+    color: $white;
+    border-radius:2px;
+    cursor: pointer;
+    @include svg;
+    > li {
+      height: 60px;
+      line-height: 60px;
+    }
+  }
+  .color-list {
+    @extend .pointer;
+  }
+  .annotation {
+    @extend .color-list;
+    // top: $list-space;
+  }
+  .removefeature {
+    @extend .color-list;
+    // top: 2 * $list-space;
+  }
+}
+
+
 .map {
   height: 100%;
   width: 100%;
@@ -113,16 +203,7 @@ li:hover {
   right: 0;
   width: 120px;
 }
-.rightmouseclick {
-  /*display: none;*/
-  position: absolute;
-  top: 0;
-  right: 0;
-  height:380px;
-  width: 60px;
-  /*height: 350px;*/
-  background-color: lightblue;
-}
+
 .ol-attribution > ul > li > a {
   display: none;
 }
@@ -161,14 +242,16 @@ li:hover {
 }
 #id-range-rotate {
   position: absolute;
-  top: 5px;
-  left: 50px;
-  width: 200px;
+  bottom: 3.7%;
+  right: 23.1%;
+  width: 300px;
+  background:rgba(66,66,66,0);
 }
+// 注释部分
 .btn-group {
   position: absolute;
   right: 0;
-  top: 250px;
+  top: 650px;
   .dropdown-menu {
     right: 0;
     left: auto;

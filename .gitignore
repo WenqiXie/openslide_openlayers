@@ -5,6 +5,7 @@ images
 *.dll
 /models
 *.exe
+*.zip
 fonts
 *.py
 *.jar

@@ -1,3 +1,5 @@
+@charset "UTF-8";
+@import "base";
 @mixin input-placeholder($color:gray) {
   input::-webkit-input-placeholder {
   color: $color;
@@ -10,5 +12,24 @@
   }
   input:-ms-input-placeholder {
   color: $color;
+  }
+}
+@mixin svg {
+  svg {
+    @extend .my__center;
+    // display: inline-block;
+    width: 30px;
+    height: 30px;
+    .cls-1,.cls-2 {
+      stroke: $white;
+    }
+  }
+  & {
+    text-align: center;
+  }
+  &:hover svg {
+    .cls-1,.cls-2 {
+      stroke: $red;
+    }
   }
 }

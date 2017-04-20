@@ -21,7 +21,7 @@ var insertAnnotationAll = function(forms) {
   for (let i = 0; i < forms.length; i++) {
     let form = forms[i]
     if (form.available) {
-      console.log('form', form);
+      // console.log('form', form);
       // 如果该注释可见，则加进来
       if (form.type != "Point" || form.message != "") {
         // 如果注释为点，又没有 message，就不加进来
