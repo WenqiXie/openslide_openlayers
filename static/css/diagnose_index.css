@@ -211,15 +211,14 @@ body {
   padding-right: 60px;
   /*width: 80%;*/ }
 
-ul {
+.geometry_menu {
   list-style: none;
   margin: 0;
   padding: 0; }
-
-li {
-  margin: 5px auto;
-  padding-left: 10px;
-  cursor: pointer; }
+  .geometry_menu li {
+    margin: 5px auto;
+    padding-left: 10px;
+    cursor: pointer; }
 
 li:hover {
   background-color: #6ac9e8; }
@@ -300,6 +299,7 @@ li:hover {
   position: absolute;
   top: 0;
   right: 0;
+  height: 380px;
   width: 60px;
   /*height: 350px;*/
   background-color: lightblue; }
@@ -345,5 +345,15 @@ li:hover {
   top: 5px;
   left: 50px;
   width: 200px; }
+
+.btn-group {
+  position: absolute;
+  right: 0;
+  top: 250px; }
+  .btn-group .dropdown-menu {
+    right: 0;
+    left: auto; }
+    .btn-group .dropdown-menu li + li {
+      border-top: 1px solid #bdbdbd; }
 
 /*# sourceMappingURL=diagnose_index.css.map */

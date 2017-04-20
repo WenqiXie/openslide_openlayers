@@ -1,0 +1,67 @@
+@charset "utf-8";
+@import "variable";
+@import "mixin";
+@import "base";
+body {
+  background-color: $white;
+}
+.login_box {
+  width: 281px;
+  height: 170px;
+  .login_or_register {
+    text-align: center;
+    margin-bottom: 30px;
+    span {
+      opacity:0.8;
+      font-size:14px;
+      font-weight: bold;
+      color:#979797;
+      cursor: pointer;
+      &:hover {
+        color: $red;
+      }
+    }
+    span + span {
+      margin-left: 92px;
+    }
+  }
+  .user-name {
+    margin-bottom: 20px;
+    width: 281px;
+    input {
+      width: 100%;
+      background-color: $white;
+      border-bottom: 2px solid #979797;
+    }
+    @include input-placeholder($gray-2);
+  }
+  .password {
+    @extend .user-name;
+    input {
+      border-bottom: 1px solid #979797;
+    }
+  }
+  .login-button {
+    margin-top: 25px;
+    text-align: right;
+  }
+}
+
+// button 的样式
+.login-button {
+  button:hover {
+    box-shadow:0 9px 15px 0 rgba(220,3,3,0.30);
+    transform: translateY(-6px);
+  }
+  button {
+    border: none;
+    background: $red;
+    border-radius: 98px;
+    width: 60px;
+    height: 31px;
+    box-shadow: 0 3px 15px 0 rgba(220,3,3,0.30);
+    color: $white;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+}

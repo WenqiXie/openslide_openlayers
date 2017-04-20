@@ -58,13 +58,13 @@ var selectEvent = function(e) {
   // console.log('e.selected', e.selected);
 
   // console.log('e.target', e.target);
-  // console.log('e.target.getFeatures()', e.target.getFeatures());
   var selectedFeatures = e.target.getFeatures().getArray()
+  console.log('selectedFeatures', selectedFeatures);
 
   if (e.selected.length == 1) {
     // 被选中的 feature 个数为 1 的时候
     selectedF = selectedFeatures[0] // 表示第一个被选中的 feature
-    // console.log('selectedF', selectedF);
+    console.log('selectedF', selectedF);
     let id = selectedF.getId()
     // console.log('id', id);
     popMessage(id, coordinate)
@@ -85,7 +85,6 @@ var selectEvent = function(e) {
     $(popupElement).popover('destroy');
     div_delete_feature.style.display = "none";
   })
-
 }
 
 var div_delete_feature = document.querySelector('#id-delete-feature')

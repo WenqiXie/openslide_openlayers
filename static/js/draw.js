@@ -6,7 +6,7 @@ var featureOverlay = new ol.layer.Vector({
   source: featuresSource,
   style: new ol.style.Style({
     fill: new ol.style.Fill({
-      color: 'rgba(255, 255, 255, 0.2)',
+      color: 'rgba(255, 255, 255, 0.1)',
       // 白色 透明度 0.2
     }),
     stroke: new ol.style.Stroke({
@@ -32,7 +32,7 @@ var message = new ol.Overlay({
 map.addOverlay(message);
 
 // 添加 feature 的方法，其实 Point
-var addNewFeature = function(form) {
+var newFeature = function(form) {
   var f;
   switch (form.type) {
     case 'Point':
@@ -59,7 +59,7 @@ var addNewFeature = function(form) {
   }
   // console.log('f', f);
   f.setId(form.id)
-  featuresSource.addFeature(f);
+  return f
 }
 
 var getForms = function() {
@@ -77,16 +77,17 @@ var getForms = function() {
 var forms = getForms()
 // console.log('forms', forms);
 // 把当前已经存在的 features 加载进来
-var addFeatures = function() {
+var addFeatureAll = function() {
   // console.log('forms', forms);
   for (let form of forms) {
     // console.log(form);
     if (form.available) {
-      addNewFeature(form)
+      let f = newFeature(form)
+      featuresSource.addFeature(f);
     }
   }
 }
-addFeatures()
+addFeatureAll()
 
 
 // ****************监听地图上的 feature 数量
@@ -191,6 +192,7 @@ var getInformation = function(parameters) {
 
 var saveForms = function(forms) {
   localStorage.messages = JSON.stringify(forms)
+  // ajax(messages)
 }
 
 var drawendEvent = function(event) {

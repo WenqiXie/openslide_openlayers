@@ -1,5 +1,5 @@
 var flyTo = function(location) {
-  let duration = 1600
+  let duration = 800
   let currentZoom = view.getZoom();
 
   let callback = function() {
