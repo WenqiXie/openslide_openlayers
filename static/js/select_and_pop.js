@@ -76,14 +76,13 @@ var selectEvent = function(e) {
     //   changeInteraction('click')
     // },100)
     $(popupElement).popover('destroy');
-    div_delete_feature.style.display = "none";
   })
 }
 
 var div_delete_feature = document.querySelector('#id-delete-feature')
 var selectedDelete = function(selectedFeaturesSourse, selectedFeatures) {
   // console.log('selectedFeatures', selectedFeatures);
-  // console.log('div_delete_feature.children', div_delete_feature.children);
+  console.log('div_delete_feature.children', div_delete_feature.children);
   // var deleteButton = div_delete_feature.children[0]
   div_delete_feature.addEventListener('click', function(event) {
     let l = selectedFeatures.length
@@ -101,7 +100,7 @@ var selectedDelete = function(selectedFeaturesSourse, selectedFeatures) {
     // console.log('form', form);
     // console.log('forms', forms);
     saveForms(forms)
-  })
+  }, {once: true})
 }
 
 var popMessage = function(id, coordinate) {
