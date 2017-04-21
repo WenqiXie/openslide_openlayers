@@ -1,4 +1,4 @@
-var dropdown_menu = document.querySelector('.dropdown-menu')
+var annotation_menu = document.querySelector('.annotation-menu')
 
 var annotationListTemp = function({id,message}) {
   // form = {
@@ -30,7 +30,7 @@ var insertAnnotationAll = function(forms) {
       }
     }
   }
-  dropdown_menu.innerHTML = html
+  annotation_menu.innerHTML = html
 }
 
 
@@ -40,7 +40,7 @@ var annotationAll = function() {
 }
 annotationAll()
 
-dropdown_menu.addEventListener('click', function() {
+annotation_menu.addEventListener('click', function() {
   let geometry;
   let target = event.target
   console.log('target', target);

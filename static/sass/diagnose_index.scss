@@ -54,7 +54,10 @@ ul.geometry_menu {
   list-style: none;
   margin: 0;
   padding: 0;
-  width: 60px;
+  width: 40px;
+  @media screen and (min-width: 1920px) {
+    width: 60px;
+  }
   // width: 2.08%;
   // min-width: 40px;
   height:380px;
@@ -82,15 +85,23 @@ ul.geometry_menu {
   position: absolute;
   top: calc(14.6% + 390px);
   right: 45px;
-  width: 60px;
+  width: 40px;
+  @media screen and (min-width: 1920px) {
+    width: 60px;
+  }
+
   // width: 2.08%;
   // min-width: 40px;
   $list-space: 70px;
   .pointer {
     position: relative;
     margin-bottom: 8px;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
+    @media screen and (min-width: 1920px) {
+      width: 60px;
+      height: 60px;
+    }
     background-color: $black-1;
     color: $white;
     border-radius:2px;
@@ -99,6 +110,7 @@ ul.geometry_menu {
     > li {
       height: 60px;
       line-height: 60px;
+
     }
   }
   .color-list {
@@ -106,12 +118,22 @@ ul.geometry_menu {
   }
   .annotation {
     @extend .color-list;
-    // top: $list-space;
   }
   .removefeature {
     @extend .color-list;
     // top: 2 * $list-space;
   }
+}
+.annotation-menu {
+  // display: none;
+  position: absolute;
+  background-color: pink;
+  right: 70px;
+  // left: auto;
+  li + li {
+    border-top: 1px solid $gray-2;
+  }
+
 }
 
 
