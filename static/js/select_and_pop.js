@@ -32,14 +32,7 @@ var changeInteraction = function(select_type) {
     map.addInteraction(select);
     select.on('select', function(e) {
       // console.log('触发 select');
-      // 这一段是用来说明有几个元素被选取，有几个元素失去选取
-      document.getElementById('status').innerHTML = '&nbsp;' +
-          e.target.getFeatures().getLength() +
-          ' selected features (last operation selected ' + e.selected.length +
-          ' and deselected ' + e.deselected.length + ' features)';
-
       selectEvent(e)
-
     });
   }
 };
@@ -47,7 +40,7 @@ var changeInteraction = function(select_type) {
 var popupElement = popup.getElement();
 
 var $messageElement = $('#message')
-
+var selectedFeaturesSourse;
 var selectEvent = function(e) {
   // pop 功能
   // 显示地图上的坐标
@@ -57,14 +50,14 @@ var selectEvent = function(e) {
   // e.selected = []
   // console.log('e.selected', e.selected);
 
-  // console.log('e.target', e.target);
-  var selectedFeatures = e.target.getFeatures().getArray()
-  console.log('selectedFeatures', selectedFeatures);
+  selectedFeaturesSourse = e.target.getFeatures()
+  var selectedFeatures = selectedFeaturesSourse.getArray()
+  // console.log('selectedFeaturesSourse', selectedFeaturesSourse);
 
   if (e.selected.length == 1) {
     // 被选中的 feature 个数为 1 的时候
     selectedF = selectedFeatures[0] // 表示第一个被选中的 feature
-    console.log('selectedF', selectedF);
+    // console.log('selectedF', selectedF);
     let id = selectedF.getId()
     // console.log('id', id);
     popMessage(id, coordinate)
@@ -73,7 +66,7 @@ var selectEvent = function(e) {
     $messageElement.popover('destroy');
   }
   // 选中状态更改鼠标右键
-  selectedDelete(selectedFeatures)
+  selectedDelete(selectedFeaturesSourse, selectedFeatures)
 
 
   featuresSource.on('removefeature', function() {
@@ -88,43 +81,15 @@ var selectEvent = function(e) {
 }
 
 var div_delete_feature = document.querySelector('#id-delete-feature')
-var selectedDelete = function(selectedFeatures) {
+var selectedDelete = function(selectedFeaturesSourse, selectedFeatures) {
   // console.log('selectedFeatures', selectedFeatures);
-  if (selectedFeatures.length >= 1) {
-    // console.log('div_delete_feature', div_delete_feature);
-    var deleteEvent = function(event) {
-      // 阻止右键默认事件
-      event.preventDefault();
-      var x = event.pageX;
-      var y = event.pageY;
-
-      div_delete_feature.style.left = x + "px";
-      div_delete_feature.style.top = y + "px";
-      div_delete_feature.style.display = "block";
-
-    }
-    // console.log('e.selected.length >= 1');
-
-    $('canvas').off('contextmenu', rigthClickEvent)
-    $('canvas').on('contextmenu', deleteEvent)
-    $('.popover.top.in').on('contextmenu', deleteEvent)
-
-  } else {
-    // console.log('e.selected.length', selectedFeatures.length);
-    $('canvas').off('contextmenu', deleteEvent)
-    $('canvas').on('contextmenu', rigthClickEvent)
-
-    div_delete_feature.style.display = "none";
-  }
-
   // console.log('div_delete_feature.children', div_delete_feature.children);
-  var deleteButton = div_delete_feature.children[0]
-  // console.log('deleteButton', deleteButton);
-  deleteButton.addEventListener('click', function(event) {
+  // var deleteButton = div_delete_feature.children[0]
+  div_delete_feature.addEventListener('click', function(event) {
     let l = selectedFeatures.length
     for (var i = 0; i < l; i++) {
       let selectedF = selectedFeatures[i]
-      console.log('selectedF', i, selectedF);
+      // console.log('selectedF', i, selectedF);
       // 从数据库隐藏
       let id = selectedF.getId()
       let form = forms[id]
@@ -132,9 +97,10 @@ var selectedDelete = function(selectedFeatures) {
       form.available = false
       featuresSource.removeFeature(selectedF)
     }
-      // console.log('form', form);
-      // console.log('forms', forms);
-      saveForms(forms)
+    selectedFeaturesSourse.clear()
+    // console.log('form', form);
+    // console.log('forms', forms);
+    saveForms(forms)
   })
 }
 

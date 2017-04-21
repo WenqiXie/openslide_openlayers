@@ -93,7 +93,7 @@ addFeatureAll()
 // ****************监听地图上的 feature 数量
 var listenerKey = featuresSource.on('change', function(){
     if (featuresSource.getState() === 'ready') {    // 判定是否加载完成
-        document.getElementById('count').innerHTML = featureOverlay.getSource().getFeatures().length;
+        // document.getElementById('count').innerHTML = featureOverlay.getSource().getFeatures().length;
         // featureOverlay.getSource().unByKey(listenerKey); // 注销监听器
         // console.log('featuresSource.getFeatures()', featuresSource.getFeatures());
     }

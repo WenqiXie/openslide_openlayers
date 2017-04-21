@@ -11,11 +11,12 @@ var annotationListTemp = function({id,message}) {
   // }
 
   let t = `
-    <li><a data-id="${id}" href="#">${id}:${message}</a></li>
+    <li data-id="${id}">${id}:${message}</li>
   `
   return t
 }
 
+var annotation_list = annotation_menu.children[1]
 var insertAnnotationAll = function(forms) {
   let html = ''
   for (let i = 0; i < forms.length; i++) {
@@ -30,9 +31,8 @@ var insertAnnotationAll = function(forms) {
       }
     }
   }
-  annotation_menu.innerHTML = html
+  annotation_list.innerHTML = html
 }
-
 
 var annotationAll = function() {
   // 把所有的 annotation 请求过来，然后插到 html 里面去
@@ -40,7 +40,7 @@ var annotationAll = function() {
 }
 annotationAll()
 
-annotation_menu.addEventListener('click', function() {
+annotation_list.addEventListener('click', function() {
   let geometry;
   let target = event.target
   console.log('target', target);
@@ -72,4 +72,8 @@ annotation_menu.addEventListener('click', function() {
 
     view.fit(geometry, options)
   }
+})
+
+$('#annotation, #close-annotation').on('click', function() {
+  $(annotation_menu).toggle()
 })

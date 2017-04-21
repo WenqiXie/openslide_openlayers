@@ -10,8 +10,8 @@ html {
 }
 body {
   position: relative;
-  height: 95%;
-  padding-right: 60px;
+  height: 100%;
+  // padding-right: 60px;
 }
 .search {
   position: absolute;
@@ -50,17 +50,18 @@ ul.geometry_menu {
   flex-direction: column;
   justify-content: flex-start;
   top: 14.6%;
-  right: 45px;
+  right: 25px;
   list-style: none;
   margin: 0;
   padding: 0;
   width: 40px;
+  height:280px;
   @media screen and (min-width: 1920px) {
     width: 60px;
+    height: 380px;
   }
   // width: 2.08%;
   // min-width: 40px;
-  height:380px;
   background-color: $black-1;
   border-radius:2px;
   li {
@@ -83,11 +84,12 @@ ul.geometry_menu {
 // 删除
 .function-list {
   position: absolute;
-  top: calc(14.6% + 390px);
-  right: 45px;
+  top: calc(14.6% + 290px);
+  right: 25px;
   width: 40px;
   @media screen and (min-width: 1920px) {
     width: 60px;
+    top: calc(14.6% + 390px);
   }
 
   // width: 2.08%;
@@ -108,9 +110,12 @@ ul.geometry_menu {
     cursor: pointer;
     @include svg;
     > li {
-      height: 60px;
-      line-height: 60px;
-
+      height: 40px;
+      line-height: 40px;
+      @media screen and (min-width: 1920px) {
+        height: 60px;
+        line-height: 60px;
+      }
     }
   }
   .color-list {
@@ -124,12 +129,30 @@ ul.geometry_menu {
     // top: 2 * $list-space;
   }
 }
+
+// 注释列表
 .annotation-menu {
-  // display: none;
+  display: none;
   position: absolute;
-  background-color: pink;
-  right: 70px;
+  padding: 56px 34px;
+  top: 20%;
+  right: 80px;
+  width: 300px;
+  max-height: 60%;
+  border:1px solid #bdbdbd;
+  border-radius: 4px;
+  box-shadow:0 15px 20px 0 rgba(63,48,48,0.30), inset 0 1px 2px 0 rgba(189,189,189,0.50);
+  background-color: $white;
   // left: auto;
+  button {
+    @include button-close;
+  }
+  li {
+    padding: 5px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
   li + li {
     border-top: 1px solid $gray-2;
   }
@@ -180,22 +203,7 @@ ul.geometry_menu {
       // 对应的 html 在 select_and_pop.js 里面
       // 函数 popMessage 里面
       // 160 行左右，popover 里面
-      position: absolute;
-      right: 30px;
-      top: 15px;
-      width: 20px;
-      height: 20px;
-      background-color: $red;
-      border: 0;
-      border-radius: 50%;
-      text-align: center;
-      > div {
-        // 这是里面那一横
-        margin: auto;
-        width: 10px;
-        height: 2px;
-        background-color: $white;
-      }
+      @include button-close;
     }
     button:nth-of-type(2) {
       position: absolute;
@@ -218,13 +226,13 @@ ul.geometry_menu {
   }
 }
 
-#id-delete-feature {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 120px;
-}
+// #id-delete-feature {
+//   display: none;
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   width: 120px;
+// }
 
 .ol-attribution > ul > li > a {
   display: none;
