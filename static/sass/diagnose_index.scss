@@ -10,7 +10,7 @@ html {
 }
 body {
   position: relative;
-  height: 100%;
+  height: 95%;
   // padding-right: 60px;
 }
 .search {
@@ -55,10 +55,10 @@ ul.geometry_menu {
   margin: 0;
   padding: 0;
   width: 40px;
-  height:280px;
+  height: 320px;
   @media screen and (min-width: 1920px) {
     width: 60px;
-    height: 380px;
+    height: 480px;
   }
   // width: 2.08%;
   // min-width: 40px;
@@ -67,7 +67,7 @@ ul.geometry_menu {
   li {
     position: relative;
     width: 100%;
-    height: calc(1 / 7 * 100%);
+    height: calc(1 / 8 * 100%);
     margin: auto;
     color: $white;
     cursor: pointer;
@@ -84,18 +84,16 @@ ul.geometry_menu {
 // 删除
 .function-list {
   position: absolute;
-  top: calc(14.6% + 290px);
+  top: calc(14.6% + 330px);
   right: 25px;
   width: 40px;
   @media screen and (min-width: 1920px) {
     width: 60px;
-    top: calc(14.6% + 390px);
+    top: calc(14.6% + 490px);
   }
 
-  // width: 2.08%;
-  // min-width: 40px;
   $list-space: 70px;
-  .pointer {
+  .color-list {
     position: relative;
     margin-bottom: 8px;
     width: 40px;
@@ -105,21 +103,65 @@ ul.geometry_menu {
       height: 60px;
     }
     background-color: $black-1;
-    color: $white;
     border-radius:2px;
     cursor: pointer;
     @include svg;
-    > li {
-      height: 40px;
-      line-height: 40px;
-      @media screen and (min-width: 1920px) {
-        height: 60px;
-        line-height: 60px;
+    &:hover svg {
+      .cls-1,.cls-2 {
+        stroke: $white;
       }
     }
-  }
-  .color-list {
-    @extend .pointer;
+
+    > ul {
+      position: absolute;
+      left: -500%;
+      display: none;
+      flex-direction: row-reverse;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 500%;
+      line-height: 100%;
+      // background-color: red;
+      li {
+        position: relative;
+        margin: 0 7px;
+        width: 20px;
+        height: 20px;
+        background:#f8691c;
+        border:2px solid $white;
+        border-radius:100%;
+        div {
+          display: none;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          @extend .my__center;
+          background-color: $white;
+        }
+        &:hover > div {
+          display: block;
+        }
+      }
+      li:nth-of-type(1) {
+        background-color: #f8691c;
+      }
+      li:nth-of-type(2) {
+        background-color: #f6a623;
+      }
+      li:nth-of-type(3) {
+        background-color: #50e3c2;
+      }
+      li:nth-of-type(4) {
+        background-color: #4990e2;
+      }
+      li:nth-of-type(5) {
+        background-color: #9012fe;
+      }
+    }
+    &:hover > ul {
+      display: flex;
+    }
   }
   .annotation {
     @extend .color-list;

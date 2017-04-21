@@ -153,15 +153,12 @@ input {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%); }
 
-/*最大宽高*/
-html, body {
-  /*max-width: 720px;*/
-  /*min-width: 640px;*/
-  /*margin: 0 auto;*/ }
-
 /*过渡*/
 .transition {
   transition: all 0.5s; }
+
+.none {
+  display: none; }
 
 /* 禁用iPhone中Safari的字号自动调整 */
 html {
@@ -317,15 +314,12 @@ input {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%); }
 
-/*最大宽高*/
-html, body {
-  /*max-width: 720px;*/
-  /*min-width: 640px;*/
-  /*margin: 0 auto;*/ }
-
 /*过渡*/
 .transition {
   transition: all 0.5s; }
+
+.none {
+  display: none; }
 
 body {
   background-color: #f7f7f7; }

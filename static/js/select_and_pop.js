@@ -18,7 +18,7 @@ var selectClick = new ol.interaction.Select({
 
 
 var changeInteraction = function(select_type) {
-  if (select !== null) {
+  if (select != null) {
     map.removeInteraction(select);
   }
   // var value = selectElement.value;
@@ -28,10 +28,16 @@ var changeInteraction = function(select_type) {
   } else {
     select = null;
   }
-  if (select !== null) {
+  if (select != null) {
     map.addInteraction(select);
     select.on('select', function(e) {
       // console.log('触发 select');
+      // 这一段是用来说明有几个元素被选取，有几个元素失去选取
+      document.getElementById('status').innerHTML = '&nbsp;' +
+          e.target.getFeatures().getLength() +
+          ' selected features (last operation selected ' + e.selected.length +
+          ' and deselected ' + e.deselected.length + ' features)';
+
       selectEvent(e)
     });
   }
@@ -45,16 +51,13 @@ var selectEvent = function(e) {
   // pop 功能
   // 显示地图上的坐标
   var coordinate = e.mapBrowserEvent.coordinate;
-  // console.log('e', e);
-  // console.log('e.selected', e.selected);
-  // e.selected = []
-  // console.log('e.selected', e.selected);
 
   selectedFeaturesSourse = e.target.getFeatures()
   var selectedFeatures = selectedFeaturesSourse.getArray()
   // console.log('selectedFeaturesSourse', selectedFeaturesSourse);
+  // console.log('selectedFeatures.length', selectedFeatures.length);
 
-  if (e.selected.length == 1) {
+  if (selectedFeatures.length == 1) {
     // 被选中的 feature 个数为 1 的时候
     selectedF = selectedFeatures[0] // 表示第一个被选中的 feature
     // console.log('selectedF', selectedF);
@@ -82,7 +85,7 @@ var selectEvent = function(e) {
 var div_delete_feature = document.querySelector('#id-delete-feature')
 var selectedDelete = function(selectedFeaturesSourse, selectedFeatures) {
   // console.log('selectedFeatures', selectedFeatures);
-  console.log('div_delete_feature.children', div_delete_feature.children);
+  // console.log('div_delete_feature.children', div_delete_feature.children);
   // var deleteButton = div_delete_feature.children[0]
   div_delete_feature.addEventListener('click', function(event) {
     let l = selectedFeatures.length
