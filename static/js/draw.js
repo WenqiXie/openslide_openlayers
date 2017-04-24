@@ -1,36 +1,4 @@
 
-var features = new ol.Collection();
-var featuresSource = new ol.source.Vector({features: features})
-// console.log('features', features);
-var featureOverlay = new ol.layer.Vector({
-  source: featuresSource,
-  style: new ol.style.Style({
-    fill: new ol.style.Fill({
-      color: 'rgba(255, 255, 255, 0.1)',
-      // 白色 透明度 0.2
-    }),
-    stroke: new ol.style.Stroke({
-      color: '#ffcc33',
-      // 黄色
-      width: 2
-    }),
-    image: new ol.style.Circle({
-      radius: 7,
-      // 半径 7
-      fill: new ol.style.Fill({
-        color: '#ffcc33'
-      })
-    })
-  })
-});
-featureOverlay.setMap(map);
-
-// 将 message 加入覆盖层
-var message = new ol.Overlay({
-  element: document.getElementById('message')
-});
-map.addOverlay(message);
-
 // 添加 feature 的方法，其实 Point
 var newFeature = function(form) {
   var f;
@@ -82,13 +50,39 @@ var addFeatureAll = function() {
   for (let form of forms) {
     // console.log(form);
     if (form.available) {
+      let color = form.color
+      // console.log('color', color);
       let f = newFeature(form)
-      featuresSource.addFeature(f);
+
+      switch (color) {
+        case '#f8691c':
+          // console.log('#f8691c，红色');
+          featuresSourceRed.addFeature(f);
+          break;
+        case '#f6a623':
+          // console.log('#f6a623，橙色');
+          featuresSourceOrange.addFeature(f);
+          break;
+        case '#50e3c2':
+          // console.log('#50e3c2，绿色');
+          featuresSourceGreen.addFeature(f);
+          break;
+        case '#4990e2':
+          // console.log('#4990e2，蓝色');
+          featuresSourceBlue.addFeature(f);
+          break;
+        case '#9012fe':
+          // console.log('#9012fe，紫色');
+          featuresSourcePurple.addFeature(f);
+          break;
+        default:
+          // console.log('default，默认');
+          featuresSource.addFeature(f);
+      }
     }
   }
 }
 addFeatureAll()
-
 
 // ****************监听地图上的 feature 数量
 var listenerKey = featuresSource.on('change', function(){
@@ -99,11 +93,10 @@ var listenerKey = featuresSource.on('change', function(){
     }
 });
 
-
 var draw; // global so we can remove it later
 // var drawTypeSelect = document.getElementById('draw-type');
 
-function addInteraction(geometry_type) {
+function addInteraction(geometry_type, features) {
   let value = geometry_type
   // console.log('value', value);
   if (value != 'None') {
@@ -113,7 +106,6 @@ function addInteraction(geometry_type) {
         // clickTolerance: 0,
         // 这个属性是当距离小于 80 的时候，就判断是在之前的点的范围内
         // snapTolerance: 80,
-        // 修改了 63328 那几行的源码，可以优化自由手绘的效果
         features: features,
         type: 'Polygon',
         freehand: true
@@ -208,6 +200,10 @@ var drawendEvent = function(event) {
   let parameters = getFeaturesParameters(drawendFeature)
 
   let form = getInformation(parameters)
+
+  let colorList = document.querySelector('.color-list')
+  let color = colorList.dataset.color
+  form.color = color
   // 然后直接保存这个 feature 到数据库
   forms[id] = form
   saveForms(forms)
@@ -216,9 +212,6 @@ var drawendEvent = function(event) {
   var mousePosition = document.querySelector('.ol-mouse-position').innerText
   mousePosition = mousePosition.split(",")
   // console.log('mousePosition', mousePosition);
-  // 在鼠标位置弹出弹窗，请求输入信息
-  // requestMessage(drawendFeature, mousePosition)
-  // 再把状态更改一下
   // console.log('form.type', form.type);
   if (form.type != 'Point') {
     setTimeout(function() {
@@ -226,7 +219,5 @@ var drawendEvent = function(event) {
       // 画完了就要进入 click 选取 的状态
       changeInteraction('click')
     },100)
-
   }
-
 }

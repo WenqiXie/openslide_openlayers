@@ -9,6 +9,12 @@ var popup = new ol.Overlay({
 });
 map.addOverlay(popup);
 
+// 将 message 加入覆盖层
+var message = new ol.Overlay({
+  element: document.getElementById('message')
+});
+map.addOverlay(message);
+
 // select interaction working on "click"
 var selectClick = new ol.interaction.Select({
   condition: ol.events.condition.click
@@ -29,6 +35,7 @@ var changeInteraction = function(select_type) {
     select = null;
   }
   if (select != null) {
+    // console.log("select" ,select);
     map.addInteraction(select);
     select.on('select', function(e) {
       // console.log('触发 select');

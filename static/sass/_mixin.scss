@@ -25,10 +25,13 @@
       stroke: $white;
     }
   }
+  svg.active {
+
+  }
   & {
     text-align: center;
   }
-  &:hover svg {
+  &:hover svg, svg.active {
     .cls-1,.cls-2 {
       stroke: $red;
     }

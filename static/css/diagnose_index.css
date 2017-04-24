@@ -428,7 +428,7 @@ ul.geometry_menu {
         stroke: #f7f7f7; }
     ul.geometry_menu li {
       text-align: center; }
-    ul.geometry_menu li:hover svg .cls-1, ul.geometry_menu li:hover svg .cls-2 {
+    ul.geometry_menu li:hover svg .cls-1, ul.geometry_menu li:hover svg .cls-2, ul.geometry_menu li svg.active .cls-1, ul.geometry_menu li svg.active .cls-2 {
       stroke: #ff5252; }
   ul.geometry_menu li:nth-of-type(1) svg {
     margin-top: 7px; }
@@ -462,7 +462,7 @@ ul.geometry_menu {
         stroke: #f7f7f7; }
     .function-list .color-list, .function-list .annotation, .function-list .removefeature {
       text-align: center; }
-    .function-list .color-list:hover svg .cls-1, .function-list .annotation:hover svg .cls-1, .function-list .removefeature:hover svg .cls-1, .function-list .color-list:hover svg .cls-2, .function-list .annotation:hover svg .cls-2, .function-list .removefeature:hover svg .cls-2 {
+    .function-list .color-list:hover svg .cls-1, .function-list .annotation:hover svg .cls-1, .function-list .removefeature:hover svg .cls-1, .function-list .color-list:hover svg .cls-2, .function-list .annotation:hover svg .cls-2, .function-list .removefeature:hover svg .cls-2, .function-list .color-list svg.active .cls-1, .function-list .annotation svg.active .cls-1, .function-list .removefeature svg.active .cls-1, .function-list .color-list svg.active .cls-2, .function-list .annotation svg.active .cls-2, .function-list .removefeature svg.active .cls-2 {
       stroke: #ff5252; }
     .function-list .color-list:hover svg .cls-1, .function-list .annotation:hover svg .cls-1, .function-list .removefeature:hover svg .cls-1, .function-list .color-list:hover svg .cls-2, .function-list .annotation:hover svg .cls-2, .function-list .removefeature:hover svg .cls-2 {
       stroke: #f7f7f7; }
@@ -655,5 +655,3 @@ ul.geometry_menu {
     left: auto; }
     .btn-group .dropdown-menu li + li {
       border-top: 1px solid #bdbdbd; }
-
-/*# sourceMappingURL=diagnose_index.css.map */
