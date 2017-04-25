@@ -2,6 +2,7 @@
 var selectedF;
 var geometry;
 var select = null;  // ref to currently selected interaction
+var div_delete_feature = document.querySelector('#id-delete-feature')
 
 // Popup showing the position the user clicked
 var popup = new ol.Overlay({
@@ -69,6 +70,8 @@ var selectEvent = function(e) {
     // 被选中的 feature 个数为 1 的时候
     selectedF = selectedFeatures[0] // 表示第一个被选中的 feature
     console.log('selectedF', selectedF);
+    let selectedFstyle = selectedF.getStyle()
+    console.log('selectedFstyle', selectedFstyle);
     let id = selectedF.getId()
     // console.log('id', id);
     popMessage(id, coordinate)
@@ -76,17 +79,60 @@ var selectEvent = function(e) {
     $(popupElement).popover('destroy');
     $messageElement.popover('destroy');
   }
+
+  // div_delete_feature 是 functionlist 里面的删除按钮
+  div_delete_feature.addEventListener('click', function(event) {
+    selectedDelete(selectedFeaturesSourse, selectedFeatures)
+  }, {once: true})
+
   // 选中状态更改鼠标右键
-  selectedDelete(selectedFeaturesSourse, selectedFeatures)
+  // div_delete_feature1 是单独的一个删除按钮，在选中之后，通过右键唤出
+  var div_delete_feature1 = document.querySelector('#id-delete-feature1')
+  div_delete_feature1.addEventListener('click', function(event) {
+    selectedDelete(selectedFeaturesSourse, selectedFeatures)
+    div_delete_feature1.style.display = "none";
+  }, {once: true})
+
+  if (selectedFeatures.length >= 1) {
+    // console.log('div_delete_feature', div_delete_feature);
+    var deleteEvent = function(event) {
+      // 阻止右键默认事件
+      event.preventDefault();
+      var x = event.pageX;
+      var y = event.pageY;
+
+      div_delete_feature1.style.left = x + "px";
+      div_delete_feature1.style.top = y + "px";
+      div_delete_feature1.style.display = "block";
+
+    }
+    // console.log('e.selected.length >= 1');
+    console.log('div_delete_feature1', div_delete_feature1);
+
+    $('canvas').off('contextmenu', rigthClickEvent)
+    $('canvas').on('contextmenu', deleteEvent)
+    $('.popover.top.in').on('contextmenu', deleteEvent)
+
+  } else {
+    // console.log('e.selected.length', selectedFeatures.length);
+    $('canvas').off('contextmenu', deleteEvent)
+    $('canvas').on('contextmenu', rigthClickEvent)
+
+    console.log('div_delete_feature1.style', div_delete_feature1.style);
+    console.log('div_delete_feature1.style[0]', div_delete_feature1.style[0]);
+    console.log('div_delete_feature1.style[1]', div_delete_feature1.style[1]);
+    div_delete_feature1.style.left = ""
+    div_delete_feature1.style.top = ""
+    div_delete_feature1.style.display = "none";
+
+  }
 
 }
 
-var div_delete_feature = document.querySelector('#id-delete-feature')
 var selectedDelete = function(selectedFeaturesSourse, selectedFeatures) {
   // console.log('selectedFeatures', selectedFeatures);
   // console.log('div_delete_feature.children', div_delete_feature.children);
   // var deleteButton = div_delete_feature.children[0]
-  div_delete_feature.addEventListener('click', function(event) {
     let l = selectedFeatures.length
     for (var i = 0; i < l; i++) {
       let selectedF = selectedFeatures[i]
@@ -98,40 +144,40 @@ var selectedDelete = function(selectedFeaturesSourse, selectedFeatures) {
       form.available = false
 
       // // 取得颜色
-      // let color = form.color
-      // console.log("color", color);
-      // switch (color) {
-      //   case '#f8691c':
-      //     // console.log('#f8691c，红色');
-      //     featuresSourceRed.removeFeature(selectedF);
-      //     break;
-      //   case '#f6a623':
-      //     // console.log('#f6a623，橙色');
-      //     featuresSourceOrange.removeFeature(selectedF);
-      //     break;
-      //   case '#50e3c2':
-      //     // console.log('#50e3c2，绿色');
-      //     featuresSourceGreen.removeFeature(selectedF);
-      //     break;
-      //   case '#4990e2':
-      //     // console.log('#4990e2，蓝色');
-      //     featuresSourceBlue.removeFeature(selectedF);
-      //     break;
-      //   case '#9012fe':
-      //     // console.log('#9012fe，紫色');
-      //     featuresSourcePurple.removeFeature(selectedF);
-      //     break;
-      //   default:
-      //     console.log('default，默认');
-      // }
-      featuresSource.removeFeature(selectedF)
+      let color = form.color
+      console.log("color", color);
+      switch (color) {
+        case '#f8691c':
+          // console.log('#f8691c，红色');
+          featuresSourceRed.removeFeature(selectedF);
+          break;
+        case '#f6a623':
+          // console.log('#f6a623，橙色');
+          featuresSourceOrange.removeFeature(selectedF);
+          break;
+        case '#50e3c2':
+          // console.log('#50e3c2，绿色');
+          featuresSourceGreen.removeFeature(selectedF);
+          break;
+        case '#4990e2':
+          // console.log('#4990e2，蓝色');
+          featuresSourceBlue.removeFeature(selectedF);
+          break;
+        case '#9012fe':
+          // console.log('#9012fe，紫色');
+          featuresSourcePurple.removeFeature(selectedF);
+          break;
+        default:
+          console.log('default，默认');
+          featuresSource.removeFeature(selectedF)
+      }
+      // featuresSource.removeFeature(selectedF)
     }
     selectedFeaturesSourse.clear()
     $(popupElement).popover('destroy');
     // console.log('form', form);
     // console.log('forms', forms);
     saveForms(forms)
-  }, {once: true})
 }
 
 var popMessage = function(id, coordinate) {
@@ -149,7 +195,7 @@ var popMessage = function(id, coordinate) {
     'html': true,
     'selector': false,
     'content': `
-      <p>message: ${form.message}</p>
+      message: <div>${form.message}</div>
       <button data-id=${form.id} id="close-message" type="button" name="button"><div></div></button>
       <button data-id=${form.id} id="update-message" type="button" name="button">编辑</button>
     `
@@ -204,12 +250,13 @@ var popEndEvent = function(id, popupElement, coordinate) {
       'html': true,
       'selector': false,
       'content': `<div>
-        <p><textarea id="message-message" type="text" name=""></textarea></p>
+        <div class="textarea"><textarea id="message-message" type="text" name=""></textarea></div>
         <button data-id=${id} id="close-message1" type="button" name="button"><div></div></button>
         <button id="commit-message" type="button" name="button">保存</button>
       </div>`
     });
     $messageElement.popover('show');
+    // $popupElement.popover("hide")
     $("#message-message").val(form.message)
     // 给输入弹窗绑定事件
     $('#close-message1').on("click", function(event){
@@ -235,7 +282,6 @@ var popEndEvent = function(id, popupElement, coordinate) {
       // console.log('content', $content);
       // console.log('$content.children(p)', $content.children('p'));
       $content.children('p').eq(0).text('message: ' + form.message)
-
     });
 
   })

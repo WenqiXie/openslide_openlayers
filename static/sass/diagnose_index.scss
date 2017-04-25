@@ -203,6 +203,12 @@ ul.geometry_menu {
   }
 }
 
+#id-delete-feature1.removefeature {
+  @include function-item;
+  display: none;
+  position: absolute;
+}
+
 // 注释列表
 .annotation-menu {
   display: none;
@@ -246,6 +252,11 @@ ul.geometry_menu {
   opacity: 0.5;
 }
 
+#message + .popover.top {
+  min-width: 300px;
+  min-height: 200px;
+  z-index: 1070;
+}
 .popover.top {
   // width: 40%;
   max-width: 580px;
@@ -261,15 +272,16 @@ ul.geometry_menu {
   > .popover-content {
     margin: 45px 30px 90px;
     padding: 0;
-    p:nth-of-type(1) {
+    .textarea:nth-of-type(1) {
       margin-top: 10px;
       margin-bottom: 16px;
     }
     textarea {
       background-color: $white;
+      width: 100%;
+      min-height: 120px;
       border: 0;
       border-bottom: 1px solid $gray-2;
-      width: 100%;
     }
     button:nth-of-type(1) {
       // 这是右上角的横线那个
