@@ -1,5 +1,6 @@
 //  例子抄自 http://openlayers.org/en/latest/apidoc/ol.interaction.Select.html
 var selectedF;
+var selectedFstyles = {};
 var geometry;
 var select = null;  // ref to currently selected interaction
 var div_delete_feature = document.querySelector('#id-delete-feature')
@@ -20,6 +21,7 @@ map.addOverlay(message);
 var selectClick = new ol.interaction.Select({
   condition: ol.events.condition.click,
   style: styles
+  // styles 在 layersdef.js 里面
 });
 
 // var selectClick = new ol.interaction.Select({});
@@ -40,7 +42,7 @@ var changeInteraction = function(select_type) {
     // console.log("select" ,select);
     map.addInteraction(select);
     select.on('select', function(e) {
-      // console.log('触发 select');
+      console.log('触发 select');
       // 这一段是用来说明有几个元素被选取，有几个元素失去选取
       document.getElementById('status').innerHTML = '&nbsp;' +
           e.target.getFeatures().getLength() +
@@ -64,14 +66,13 @@ var selectEvent = function(e) {
   selectedFeaturesSourse = e.target.getFeatures()
   var selectedFeatures = selectedFeaturesSourse.getArray()
   // console.log('selectedFeaturesSourse', selectedFeaturesSourse);
-  // console.log('selectedFeatures.length', selectedFeatures.length);
-
+  // console.log('e.selected', e.selected);
+  // console.log('e.deselected', e.deselected);
+  // console.log('selectedF', selectedF);
   if (selectedFeatures.length == 1) {
     // 被选中的 feature 个数为 1 的时候
     selectedF = selectedFeatures[0] // 表示第一个被选中的 feature
-    console.log('selectedF', selectedF);
-    let selectedFstyle = selectedF.getStyle()
-    console.log('selectedFstyle', selectedFstyle);
+    // console.log('selectedF', selectedF);
     let id = selectedF.getId()
     // console.log('id', id);
     popMessage(id, coordinate)
@@ -93,6 +94,8 @@ var selectEvent = function(e) {
     div_delete_feature1.style.display = "none";
   }, {once: true})
 
+  // 改写右键事件
+  // 同时，将选中的 feature 的 style 记录下来
   if (selectedFeatures.length >= 1) {
     // console.log('div_delete_feature', div_delete_feature);
     var deleteEvent = function(event) {
@@ -107,24 +110,42 @@ var selectEvent = function(e) {
 
     }
     // console.log('e.selected.length >= 1');
-    console.log('div_delete_feature1', div_delete_feature1);
-
     $('canvas').off('contextmenu', rigthClickEvent)
     $('canvas').on('contextmenu', deleteEvent)
     $('.popover.top.in').on('contextmenu', deleteEvent)
+
+    // 改写 style 样式
+    let _selectedF = e.selected[0]
+    console.log('_selectedF', _selectedF);
+    let selectedFstyle = _selectedF.getStyle()
+    console.log('selectedFstyle', selectedFstyle);
+    _selectedF.setStyle(styles)
+    let id = _selectedF.getId()
+    console.log('id', id);
+
+    selectedFstyles[id] = selectedFstyle
+    console.log('selectedFstyles', selectedFstyles);
 
   } else {
     // console.log('e.selected.length', selectedFeatures.length);
     $('canvas').off('contextmenu', deleteEvent)
     $('canvas').on('contextmenu', rigthClickEvent)
 
-    console.log('div_delete_feature1.style', div_delete_feature1.style);
-    console.log('div_delete_feature1.style[0]', div_delete_feature1.style[0]);
-    console.log('div_delete_feature1.style[1]', div_delete_feature1.style[1]);
     div_delete_feature1.style.left = ""
     div_delete_feature1.style.top = ""
     div_delete_feature1.style.display = "none";
 
+  }
+
+  let deselectedFs = e.deselected
+  console.log('deselectedFs', deselectedFs);
+  for (var i = 0; i < deselectedFs.length; i++) {
+    let id = deselectedFs[i].getId()
+    console.log('id', id);
+
+    let selectedFstyle = selectedFstyles[id]
+    console.log('selectedFstyle', selectedFstyle);
+    deselectedFs[i].setStyle(selectedFstyle)
   }
 
 }
@@ -195,7 +216,7 @@ var popMessage = function(id, coordinate) {
     'html': true,
     'selector': false,
     'content': `
-      message: <div>${form.message}</div>
+      message: <div id="id-message-content">${marked(form.message)}</div>
       <button data-id=${form.id} id="close-message" type="button" name="button"><div></div></button>
       <button data-id=${form.id} id="update-message" type="button" name="button">编辑</button>
     `
@@ -204,6 +225,11 @@ var popMessage = function(id, coordinate) {
   });
 
   $popupElement.popover('show');
+
+  // var marked = require('marked')
+  let messageContent = document.querySelector("#id-message-content")
+  messageContent.innerHTML = marked(form.message)
+
 
   $('#close-message').on("click", function(event){
     // 取消输入，弹窗消失
@@ -222,7 +248,8 @@ var popEndEvent = function(id, popupElement, coordinate) {
   var form = forms[id]
   $('#update-message').on('click', function(e) {
     console.log('编辑这个message');
-    // $popupElement.popover('hide');
+
+    $('#popup + .popover.top').hide()
 
     let target = e.target
     let targetId = target.dataset.id
@@ -263,6 +290,8 @@ var popEndEvent = function(id, popupElement, coordinate) {
       // 取消输入，弹窗消失
       console.log('close-message');
       $messageElement.popover('destroy');
+      $('#popup + .popover.top').show()
+
     });
 
     // 给保存按钮绑定事件
@@ -276,12 +305,13 @@ var popEndEvent = function(id, popupElement, coordinate) {
 
       $messageElement.popover('destroy');
 
-      // $popupElement.popover('show');
+      $('#popup + .popover.top').show()
+
+      let messageContent = document.querySelector("#id-message-content")
+      messageContent.innerHTML = marked(form.message)
 
       let $content = $('.popover-content')
       // console.log('content', $content);
-      // console.log('$content.children(p)', $content.children('p'));
-      $content.children('p').eq(0).text('message: ' + form.message)
     });
 
   })

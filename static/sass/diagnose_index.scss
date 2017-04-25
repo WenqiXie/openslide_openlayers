@@ -56,14 +56,14 @@ ul.geometry_menu {
   padding: 0;
   width: 40px;
   height: 320px;
+  background-color: $dark-cyan-1;
+  border-radius:2px;
   @media screen and (min-width: 1920px) {
     width: 60px;
     height: 480px;
   }
   // width: 2.08%;
   // min-width: 40px;
-  background-color: $black-1;
-  border-radius:2px;
   li {
     position: relative;
     width: 100%;
@@ -252,6 +252,7 @@ ul.geometry_menu {
   opacity: 0.5;
 }
 
+// 输入部分弹出框的样式
 #message + .popover.top {
   min-width: 300px;
   min-height: 200px;
@@ -264,7 +265,7 @@ ul.geometry_menu {
   min-height: 200px;
   // margin: 0;
   // padding: 30px;
-  background-color: $white;
+  background-color: $ivory-yellow;
   border: 1px solid $gray-2;
   border-radius: $radius;
   -webkit-box-shadow: 0 15px 40px 0 rgba(63,48,48,0.3);
@@ -311,13 +312,10 @@ ul.geometry_menu {
   }
 }
 
-// #id-delete-feature {
-//   display: none;
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   width: 120px;
-// }
+// 这部分是 弹出框的信息显示
+#id-message-content {
+  // 样式是要重写的
+}
 
 .ol-attribution > ul > li > a {
   display: none;

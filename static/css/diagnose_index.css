@@ -406,7 +406,7 @@ ul.geometry_menu {
   padding: 0;
   width: 40px;
   height: 320px;
-  background-color: #424242;
+  background-color: #1c293f;
   border-radius: 2px; }
   @media screen and (min-width: 1920px) {
     ul.geometry_menu {
@@ -447,7 +447,7 @@ ul.geometry_menu {
     margin-bottom: 8px;
     width: 40px;
     height: 40px;
-    background-color: #424242;
+    background-color: #1c293f;
     border-radius: 2px;
     cursor: pointer; }
     @media screen and (min-width: 1920px) {
@@ -509,7 +509,7 @@ ul.geometry_menu {
     margin-bottom: 8px;
     width: 40px;
     height: 40px;
-    background-color: #424242;
+    background-color: #1c293f;
     border-radius: 2px;
     cursor: pointer; }
     @media screen and (min-width: 1920px) {
@@ -564,7 +564,7 @@ ul.geometry_menu {
     margin-bottom: 8px;
     width: 40px;
     height: 40px;
-    background-color: #424242;
+    background-color: #1c293f;
     border-radius: 2px;
     cursor: pointer; }
     @media screen and (min-width: 1920px) {
@@ -587,7 +587,7 @@ ul.geometry_menu {
   margin-bottom: 8px;
   width: 40px;
   height: 40px;
-  background-color: #424242;
+  background-color: #1c293f;
   border-radius: 2px;
   cursor: pointer;
   display: none;
@@ -662,7 +662,7 @@ ul.geometry_menu {
   max-width: 580px;
   min-width: 300px;
   min-height: 200px;
-  background-color: #f7f7f7;
+  background-color: #F9F8F4;
   border: 1px solid #bdbdbd;
   border-radius: 4px;
   -webkit-box-shadow: 0 15px 40px 0 rgba(63, 48, 48, 0.3);

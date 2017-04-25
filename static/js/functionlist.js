@@ -36,38 +36,37 @@ geometry_menu.onclick = function(event) {
   if (geometry_type != "None") {
     map.removeInteraction(draw);
     changeInteraction('None')
-    
-    let colorList = document.querySelector('.color-list')
-    let color = colorList.dataset.color
-    console.log("color", color);
-    switch (color) {
-      case '#f8691c':
-        console.log('#f8691c，红色');
-        addInteraction(geometry_type, featuresRed);
-        break;
-      case '#f6a623':
-        console.log('#f6a623，橙色');
-        addInteraction(geometry_type, featuresOrange);
-        break;
-      case '#50e3c2':
-        console.log('#50e3c2，绿色');
-        addInteraction(geometry_type, featuresGreen);
-        break;
-      case '#4990e2':
-        console.log('#4990e2，蓝色');
-        addInteraction(geometry_type, featuresBlue);
-        break;
-      case '#9012fe':
-        console.log('#9012fe，紫色');
-        addInteraction(geometry_type, featuresPurple);
-        break;
-      default:
-        console.log('default，默认');
-        addInteraction(geometry_type, features);
-    }
 
+    // let colorList = document.querySelector('.color-list')
+    // let color = colorList.dataset.color
+    // console.log("color", color);
+    // switch (color) {
+    //   case '#f8691c':
+    //     console.log('#f8691c，红色');
+    //     addInteraction(geometry_type, featuresRed);
+    //     break;
+    //   case '#f6a623':
+    //     console.log('#f6a623，橙色');
+    //     addInteraction(geometry_type, featuresOrange);
+    //     break;
+    //   case '#50e3c2':
+    //     console.log('#50e3c2，绿色');
+    //     addInteraction(geometry_type, featuresGreen);
+    //     break;
+    //   case '#4990e2':
+    //     console.log('#4990e2，蓝色');
+    //     addInteraction(geometry_type, featuresBlue);
+    //     break;
+    //   case '#9012fe':
+    //     console.log('#9012fe，紫色');
+    //     addInteraction(geometry_type, featuresPurple);
+    //     break;
+    //   default:
+    //     console.log('default，默认');
+    //     addInteraction(geometry_type, features);
+    // }
 
-    // addInteraction(geometry_type);
+    addInteraction(geometry_type);
 
   } else {
     map.removeInteraction(draw);

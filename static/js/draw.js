@@ -28,24 +28,24 @@ var newFeature = function(form) {
   // console.log('f', f);
   f.setId(form.id)
 
-  // f.setStyle(new ol.style.Style({
-    // fill: new ol.style.Fill({
-      // color: 'rgba(55, 55, 55, 0.2)',
+  f.setStyle(new ol.style.Style({
+    fill: new ol.style.Fill({
+      color: 'rgba(255, 255, 255, 0.2)',
       // 白色 透明度 0.2
-    // }),
-    // stroke: new ol.style.Stroke({
-    //   color: form.color,
-    //   width: form.width
-    // }),
-    // image: new ol.style.Circle({
-    //   radius: 7,
-    //   // 半径 7
-    //   fill: new ol.style.Fill({
-    //     color: form.color
-    //   })
-    // })
+    }),
+    stroke: new ol.style.Stroke({
+      color: form.color,
+      width: form.width
+    }),
+    image: new ol.style.Circle({
+      radius: 7,
+      // 半径 7
+      fill: new ol.style.Fill({
+        color: form.color
+      })
+    })
 
-  // }))
+  }))
 
   return f
 }
@@ -74,32 +74,33 @@ var addFeatureAll = function() {
       // console.log('color', color);
       let f = newFeature(form)
 
-      switch (color) {
-        case '#f8691c':
-          // console.log('#f8691c，红色');
-          featuresSourceRed.addFeature(f);
-          break;
-        case '#f6a623':
-          // console.log('#f6a623，橙色');
-          featuresSourceOrange.addFeature(f);
-          break;
-        case '#50e3c2':
-          // console.log('#50e3c2，绿色');
-          featuresSourceGreen.addFeature(f);
-          break;
-        case '#4990e2':
-          // console.log('#4990e2，蓝色');
-          featuresSourceBlue.addFeature(f);
-          break;
-        case '#9012fe':
-          // console.log('#9012fe，紫色');
-          featuresSourcePurple.addFeature(f);
-          break;
-        default:
-          // console.log('default，默认');
-          featuresSource.addFeature(f);
-      }
+      // switch (color) {
+      //   case '#f8691c':
+      //     // console.log('#f8691c，红色');
+      //     featuresSourceRed.addFeature(f);
+      //     break;
+      //   case '#f6a623':
+      //     // console.log('#f6a623，橙色');
+      //     featuresSourceOrange.addFeature(f);
+      //     break;
+      //   case '#50e3c2':
+      //     // console.log('#50e3c2，绿色');
+      //     featuresSourceGreen.addFeature(f);
+      //     break;
+      //   case '#4990e2':
+      //     // console.log('#4990e2，蓝色');
+      //     featuresSourceBlue.addFeature(f);
+      //     break;
+      //   case '#9012fe':
+      //     // console.log('#9012fe，紫色');
+      //     featuresSourcePurple.addFeature(f);
+      //     break;
+      //   default:
+      //     // console.log('default，默认');
+      //     featuresSource.addFeature(f);
+      // }
 
+      featuresSource.addFeature(f);
     }
   }
 }
@@ -117,7 +118,7 @@ var listenerKey = featuresSource.on('change', function(){
 var draw; // global so we can remove it later
 // var drawTypeSelect = document.getElementById('draw-type');
 
-function addInteraction(geometry_type, features) {
+function addInteraction(geometry_type) {
   let value = geometry_type
   // console.log('value', value);
   if (value != 'None') {
@@ -208,9 +209,10 @@ var saveForms = function(forms) {
   // ajax(messages)
 }
 
+var drawendFeature
 var drawendEvent = function(event) {
   // 先取得画出来的这个 feature
-  var drawendFeature = event.feature
+  drawendFeature = event.feature
   console.log('drawendFeature', drawendFeature);
   // 给 feature 一个 id
   let id = forms.length
@@ -233,25 +235,25 @@ var drawendEvent = function(event) {
   form.width = width
   console.log('form', form);
 
-  // drawendFeature.setStyle(new ol.style.Style({
-  //   fill: new ol.style.Fill({
-  //     color: 'rgba(255, 255, 255, 0.1)',
-  //     // 白色 透明度 0.2
-  //   }),
-  //   stroke: new ol.style.Stroke({
-  //     color: color,
-  //     // 黄色
-  //     width: width
-  //   }),
-  //   image: new ol.style.Circle({
-  //     radius: 7,
-  //     // 半径 7
-  //     fill: new ol.style.Fill({
-  //       color: color
-  //     })
-  //   })
-  //
-  // }))
+  drawendFeature.setStyle(new ol.style.Style({
+    fill: new ol.style.Fill({
+      color: 'rgba(255, 255, 255, 0.1)',
+      // 白色 透明度 0.2
+    }),
+    stroke: new ol.style.Stroke({
+      color: color,
+      // 黄色
+      width: width
+    }),
+    image: new ol.style.Circle({
+      radius: 7,
+      // 半径 7
+      fill: new ol.style.Fill({
+        color: color
+      })
+    })
+
+  }))
 
   // 然后直接保存这个 feature 到数据库
   forms[id] = form
