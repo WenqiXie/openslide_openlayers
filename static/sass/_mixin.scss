@@ -55,3 +55,19 @@
     background-color: $white;
   }
 }
+
+@mixin function-item {
+  position: relative;
+  margin-bottom: 8px;
+  width: 40px;
+  height: 40px;
+  @media screen and (min-width: 1920px) {
+    width: 60px;
+    height: 60px;
+  }
+  background-color: $black-1;
+  border-radius:2px;
+  cursor: pointer;
+  @include svg;
+
+}

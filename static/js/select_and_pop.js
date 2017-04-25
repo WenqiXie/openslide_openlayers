@@ -17,7 +17,8 @@ map.addOverlay(message);
 
 // select interaction working on "click"
 var selectClick = new ol.interaction.Select({
-  condition: ol.events.condition.click
+  condition: ol.events.condition.click,
+  style: styles
 });
 
 // var selectClick = new ol.interaction.Select({});
@@ -67,7 +68,7 @@ var selectEvent = function(e) {
   if (selectedFeatures.length == 1) {
     // 被选中的 feature 个数为 1 的时候
     selectedF = selectedFeatures[0] // 表示第一个被选中的 feature
-    // console.log('selectedF', selectedF);
+    console.log('selectedF', selectedF);
     let id = selectedF.getId()
     // console.log('id', id);
     popMessage(id, coordinate)
@@ -78,15 +79,6 @@ var selectEvent = function(e) {
   // 选中状态更改鼠标右键
   selectedDelete(selectedFeaturesSourse, selectedFeatures)
 
-
-  featuresSource.on('removefeature', function() {
-    // console.log('removefeature');
-    // changeInteraction('none')
-    // setTimeout(function() {
-    //   changeInteraction('click')
-    // },100)
-    $(popupElement).popover('destroy');
-  })
 }
 
 var div_delete_feature = document.querySelector('#id-delete-feature')
@@ -104,9 +96,38 @@ var selectedDelete = function(selectedFeaturesSourse, selectedFeatures) {
       let form = forms[id]
       // console.log('form', form);
       form.available = false
+
+      // // 取得颜色
+      // let color = form.color
+      // console.log("color", color);
+      // switch (color) {
+      //   case '#f8691c':
+      //     // console.log('#f8691c，红色');
+      //     featuresSourceRed.removeFeature(selectedF);
+      //     break;
+      //   case '#f6a623':
+      //     // console.log('#f6a623，橙色');
+      //     featuresSourceOrange.removeFeature(selectedF);
+      //     break;
+      //   case '#50e3c2':
+      //     // console.log('#50e3c2，绿色');
+      //     featuresSourceGreen.removeFeature(selectedF);
+      //     break;
+      //   case '#4990e2':
+      //     // console.log('#4990e2，蓝色');
+      //     featuresSourceBlue.removeFeature(selectedF);
+      //     break;
+      //   case '#9012fe':
+      //     // console.log('#9012fe，紫色');
+      //     featuresSourcePurple.removeFeature(selectedF);
+      //     break;
+      //   default:
+      //     console.log('default，默认');
+      // }
       featuresSource.removeFeature(selectedF)
     }
     selectedFeaturesSourse.clear()
+    $(popupElement).popover('destroy');
     // console.log('form', form);
     // console.log('forms', forms);
     saveForms(forms)

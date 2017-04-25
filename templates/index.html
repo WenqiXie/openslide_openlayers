@@ -64,19 +64,28 @@
     </ul>
     <!-- 其他功能列表 -->
     <div class="function-list">
+      <div id="annotation" class="annotation" title="注释列表">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.83 26"><defs><style>.cls-1,.cls-2{fill:none;stroke:#f7f7f7;stroke-linecap:round;stroke-width:2px;}.cls-1{stroke-linejoin:round;}.cls-2{stroke-miterlimit:10;}</style></defs><path class="cls-1" d="M17.13,13.09s0,0,0,0V7.22a6.22,6.22,0,0,0-12.44,0V13s0,0,0,0A9.89,9.89,0,0,0,1,20.8a51.45,51.45,0,0,0,19.83,0A9.89,9.89,0,0,0,17.13,13.09Z"/><path class="cls-2" d="M13.45,22.46a2.54,2.54,0,1,1-5.07,0"/></svg>
+      </div>
+      
       <div class="color-list" title="颜色列表">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><defs><style>.cls-1{fill:none;stroke:#424142;stroke-linecap:round;stroke-miterlimit:10;stroke-width:2px;}</style></defs><path class="cls-1" d="M25,13c0,3.39-4.93,2.94-7.19,5.12S16.23,25,13,25A12,12,0,1,1,25,13Z"/><circle class="cls-1" cx="7.51" cy="8.83" r="1"/><circle class="cls-1" cx="6.47" cy="15.48" r="1"/><circle class="cls-1" cx="13.69" cy="6.42" r="1"/><circle class="cls-1" cx="11.18" cy="19.61" r="1"/></svg>
         <ul>
-          <li data-color="#f8691c"><div class="white_point"><div></li>
-          <li data-color="#f6a623"><div class="white_point"><div></li>
-          <li data-color="#50e3c2"><div class="white_point"><div></li>
-          <li data-color="#4990e2"><div class="white_point"><div></li>
-          <li data-color="#9012fe"><div class="white_point"><div></li>
+          <li data-color="#f8691c"><div class="white_point"></div></li>
+          <li data-color="#f6a623"><div class="white_point"></div></li>
+          <li data-color="#50e3c2"><div class="white_point"></div></li>
+          <li data-color="#4990e2"><div class="white_point"></div></li>
+          <li data-color="#9012fe"><div class="white_point"></div></li>
         </ul>
       </div>
 
-      <div id="annotation" class="annotation" title="注释列表">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.83 26"><defs><style>.cls-1,.cls-2{fill:none;stroke:#f7f7f7;stroke-linecap:round;stroke-width:2px;}.cls-1{stroke-linejoin:round;}.cls-2{stroke-miterlimit:10;}</style></defs><path class="cls-1" d="M17.13,13.09s0,0,0,0V7.22a6.22,6.22,0,0,0-12.44,0V13s0,0,0,0A9.89,9.89,0,0,0,1,20.8a51.45,51.45,0,0,0,19.83,0A9.89,9.89,0,0,0,17.13,13.09Z"/><path class="cls-2" d="M13.45,22.46a2.54,2.54,0,1,1-5.07,0"/></svg>
+      <div class="stroke-list" title="粗细">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><defs><style>.cls-1{fill:none;stroke:#424142;stroke-linecap:round;stroke-miterlimit:10;stroke-width:2px;}</style></defs><path class="cls-1" d="M25,13c0,3.39-4.93,2.94-7.19,5.12S16.23,25,13,25A12,12,0,1,1,25,13Z"/><circle class="cls-1" cx="7.51" cy="8.83" r="1"/><circle class="cls-1" cx="6.47" cy="15.48" r="1"/><circle class="cls-1" cx="13.69" cy="6.42" r="1"/><circle class="cls-1" cx="11.18" cy="19.61" r="1"/></svg>
+        <ul>
+          <li data-width="2"><div class="black_point"></div></li>
+          <li data-width="5"><div class="black_point"></div></li>
+          <li data-width="8"><div class="black_point"></div></li>
+        </ul>
       </div>
       <!-- 删除部分 -->
       <div id="id-delete-feature" class="removefeature" title="删除">
@@ -161,8 +170,8 @@
           view: view,
           target: 'map',
       });
-      console.log('map.getInteractions().getArray()', map.getInteractions().getArray());
-      console.log('map.getControls().getArray()', map.getControls().getArray());
+      // console.log('map.getInteractions().getArray()', map.getInteractions().getArray());
+      // console.log('map.getControls().getArray()', map.getControls().getArray());
       // 资源加载的时候，要调 imgSize
       imgSize[0] *= 250
       imgSize[1] *= 250

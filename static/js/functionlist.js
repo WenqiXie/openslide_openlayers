@@ -13,7 +13,7 @@ var rigthClickEvent = function(event) {
 $('canvas').on('contextmenu', rigthClickEvent)
 
 document.body.onclick = function() {
-  // 点击页面的时候 让右键菜单隐藏
+  // 点击页面的时候 让右键菜单回去
   geometry_menu.style.left = 'auto';
   geometry_menu.style.top = '';
 }
@@ -37,38 +37,8 @@ geometry_menu.onclick = function(event) {
     map.removeInteraction(draw);
     changeInteraction('None')
 
-    // 取得颜色
-    let colorList = document.querySelector('.color-list')
+    addInteraction(geometry_type);
 
-    // console.log('colorList.style.backgroundColor', colorList.style.backgroundColor);
-
-    let color = colorList.dataset.color
-    console.log("color", color);
-    switch (color) {
-      case '#f8691c':
-        console.log('#f8691c，红色');
-        addInteraction(geometry_type, featuresRed);
-        break;
-      case '#f6a623':
-        console.log('#f6a623，橙色');
-        addInteraction(geometry_type, featuresOrange);
-        break;
-      case '#50e3c2':
-        console.log('#50e3c2，绿色');
-        addInteraction(geometry_type, featuresGreen);
-        break;
-      case '#4990e2':
-        console.log('#4990e2，蓝色');
-        addInteraction(geometry_type, featuresBlue);
-        break;
-      case '#9012fe':
-        console.log('#9012fe，紫色');
-        addInteraction(geometry_type, featuresPurple);
-        break;
-      default:
-        console.log('default，默认');
-        addInteraction(geometry_type, features);
-    }
   } else {
     map.removeInteraction(draw);
     // 画完了就要进入 click 选取 的状态
@@ -106,11 +76,17 @@ bindEvent('.color-list > ul', 'click', function(e) {
   let colorList = document.querySelector('.color-list')
   colorList.style.backgroundColor = color
   colorList.dataset.color = color
-  // let color_ul = document.querySelector('.color-list > ul')
-  // // toggle_style_display(color_ul, 'flex')
-  // if (color_ul.style.display == 'none') {
-  //   color_ul.style.display = 'flex'
-  // } else {
-  //   color_ul.style.display = 'none'
-  // }
+})
+
+bindEvent('.stroke-list > ul', 'click', function(e) {
+  let target = e.target
+  console.log('target', target);
+  if (target.dataset.width == undefined) {
+    target = target.parentElement
+    console.log('target', target);
+  }
+  let width = target.dataset.width
+  console.log('width', width);
+  let strokeList = document.querySelector('.stroke-list')
+  strokeList.dataset.width = width
 })

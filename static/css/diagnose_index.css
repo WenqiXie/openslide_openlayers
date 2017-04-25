@@ -139,7 +139,7 @@ input {
   background-size: 200px 200px; }
 
 /*水平 垂直居中*/
-.my__center, ul.geometry_menu li svg, .function-list .color-list svg, .function-list .annotation svg, .function-list .removefeature svg, .function-list .color-list > ul li div, .function-list .annotation > ul li div, .function-list .removefeature > ul li div, .my_center::before {
+.my__center, ul.geometry_menu li svg, .function-list .color-list svg, .function-list .color-list > ul li div, .function-list .stroke-list svg, .function-list .stroke-list > ul li .black_point, .function-list .removefeature svg, .function-list .annotation svg, .my_center::before {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -338,7 +338,7 @@ input {
   background-size: 200px 200px; }
 
 /*水平 垂直居中*/
-.my__center, ul.geometry_menu li svg, .function-list .color-list svg, .function-list .annotation svg, .function-list .removefeature svg, .function-list .color-list > ul li div, .function-list .annotation > ul li div, .function-list .removefeature > ul li div, .my_center::before {
+.my__center, ul.geometry_menu li svg, .function-list .color-list svg, .function-list .color-list > ul li div, .function-list .stroke-list svg, .function-list .stroke-list > ul li .black_point, .function-list .removefeature svg, .function-list .annotation svg, .my_center::before {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -442,7 +442,7 @@ ul.geometry_menu {
     .function-list {
       width: 60px;
       top: calc(14.6% + 490px); } }
-  .function-list .color-list, .function-list .annotation, .function-list .removefeature {
+  .function-list .color-list {
     position: relative;
     margin-bottom: 8px;
     width: 40px;
@@ -451,22 +451,22 @@ ul.geometry_menu {
     border-radius: 2px;
     cursor: pointer; }
     @media screen and (min-width: 1920px) {
-      .function-list .color-list, .function-list .annotation, .function-list .removefeature {
+      .function-list .color-list {
         width: 60px;
         height: 60px; } }
-    .function-list .color-list svg, .function-list .annotation svg, .function-list .removefeature svg {
+    .function-list .color-list svg {
       padding: 25%;
       width: 100%;
       height: 100%; }
-      .function-list .color-list svg .cls-1, .function-list .annotation svg .cls-1, .function-list .removefeature svg .cls-1, .function-list .color-list svg .cls-2, .function-list .annotation svg .cls-2, .function-list .removefeature svg .cls-2 {
+      .function-list .color-list svg .cls-1, .function-list .color-list svg .cls-2 {
         stroke: #f7f7f7; }
-    .function-list .color-list, .function-list .annotation, .function-list .removefeature {
+    .function-list .color-list {
       text-align: center; }
-    .function-list .color-list:hover svg .cls-1, .function-list .annotation:hover svg .cls-1, .function-list .removefeature:hover svg .cls-1, .function-list .color-list:hover svg .cls-2, .function-list .annotation:hover svg .cls-2, .function-list .removefeature:hover svg .cls-2, .function-list .color-list svg.active .cls-1, .function-list .annotation svg.active .cls-1, .function-list .removefeature svg.active .cls-1, .function-list .color-list svg.active .cls-2, .function-list .annotation svg.active .cls-2, .function-list .removefeature svg.active .cls-2 {
+    .function-list .color-list:hover svg .cls-1, .function-list .color-list:hover svg .cls-2, .function-list .color-list svg.active .cls-1, .function-list .color-list svg.active .cls-2 {
       stroke: #ff5252; }
-    .function-list .color-list:hover svg .cls-1, .function-list .annotation:hover svg .cls-1, .function-list .removefeature:hover svg .cls-1, .function-list .color-list:hover svg .cls-2, .function-list .annotation:hover svg .cls-2, .function-list .removefeature:hover svg .cls-2 {
+    .function-list .color-list:hover svg .cls-1, .function-list .color-list:hover svg .cls-2 {
       stroke: #f7f7f7; }
-    .function-list .color-list > ul, .function-list .annotation > ul, .function-list .removefeature > ul {
+    .function-list .color-list > ul {
       position: absolute;
       left: -500%;
       display: none;
@@ -476,7 +476,7 @@ ul.geometry_menu {
       height: 100%;
       width: 500%;
       line-height: 100%; }
-      .function-list .color-list > ul li, .function-list .annotation > ul li, .function-list .removefeature > ul li {
+      .function-list .color-list > ul li {
         position: relative;
         margin: 0 7px;
         width: 20px;
@@ -484,26 +484,103 @@ ul.geometry_menu {
         background: #f8691c;
         border: 2px solid #f7f7f7;
         border-radius: 100%; }
-        .function-list .color-list > ul li div, .function-list .annotation > ul li div, .function-list .removefeature > ul li div {
+        .function-list .color-list > ul li div {
           display: none;
           width: 6px;
           height: 6px;
           border-radius: 50%;
           background-color: #f7f7f7; }
-        .function-list .color-list > ul li:hover > div, .function-list .annotation > ul li:hover > div, .function-list .removefeature > ul li:hover > div {
+        .function-list .color-list > ul li:hover > div {
           display: block; }
-      .function-list .color-list > ul li:nth-of-type(1), .function-list .annotation > ul li:nth-of-type(1), .function-list .removefeature > ul li:nth-of-type(1) {
+      .function-list .color-list > ul li:nth-of-type(1) {
         background-color: #f8691c; }
-      .function-list .color-list > ul li:nth-of-type(2), .function-list .annotation > ul li:nth-of-type(2), .function-list .removefeature > ul li:nth-of-type(2) {
+      .function-list .color-list > ul li:nth-of-type(2) {
         background-color: #f6a623; }
-      .function-list .color-list > ul li:nth-of-type(3), .function-list .annotation > ul li:nth-of-type(3), .function-list .removefeature > ul li:nth-of-type(3) {
+      .function-list .color-list > ul li:nth-of-type(3) {
         background-color: #50e3c2; }
-      .function-list .color-list > ul li:nth-of-type(4), .function-list .annotation > ul li:nth-of-type(4), .function-list .removefeature > ul li:nth-of-type(4) {
+      .function-list .color-list > ul li:nth-of-type(4) {
         background-color: #4990e2; }
-      .function-list .color-list > ul li:nth-of-type(5), .function-list .annotation > ul li:nth-of-type(5), .function-list .removefeature > ul li:nth-of-type(5) {
+      .function-list .color-list > ul li:nth-of-type(5) {
         background-color: #9012fe; }
-    .function-list .color-list:hover > ul, .function-list .annotation:hover > ul, .function-list .removefeature:hover > ul {
+    .function-list .color-list:hover > ul {
       display: flex; }
+  .function-list .stroke-list {
+    position: relative;
+    margin-bottom: 8px;
+    width: 40px;
+    height: 40px;
+    background-color: #424242;
+    border-radius: 2px;
+    cursor: pointer; }
+    @media screen and (min-width: 1920px) {
+      .function-list .stroke-list {
+        width: 60px;
+        height: 60px; } }
+    .function-list .stroke-list svg {
+      padding: 25%;
+      width: 100%;
+      height: 100%; }
+      .function-list .stroke-list svg .cls-1, .function-list .stroke-list svg .cls-2 {
+        stroke: #f7f7f7; }
+    .function-list .stroke-list {
+      text-align: center; }
+    .function-list .stroke-list:hover svg .cls-1, .function-list .stroke-list:hover svg .cls-2, .function-list .stroke-list svg.active .cls-1, .function-list .stroke-list svg.active .cls-2 {
+      stroke: #ff5252; }
+    .function-list .stroke-list > ul {
+      position: absolute;
+      left: -300%;
+      display: none;
+      flex-direction: row-reverse;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 300%;
+      line-height: 100%; }
+      .function-list .stroke-list > ul li {
+        position: relative;
+        margin: 0;
+        width: 100%;
+        height: 100%; }
+        .function-list .stroke-list > ul li .black_point {
+          border-radius: 50%;
+          background-color: #424242; }
+        .function-list .stroke-list > ul li:hover {
+          background-color: #424242; }
+          .function-list .stroke-list > ul li:hover .black_point {
+            background-color: #f7f7f7; }
+      .function-list .stroke-list > ul li:nth-of-type(1) > .black_point {
+        width: 2px;
+        height: 2px; }
+      .function-list .stroke-list > ul li:nth-of-type(2) > .black_point {
+        width: 5px;
+        height: 5px; }
+      .function-list .stroke-list > ul li:nth-of-type(3) > .black_point {
+        width: 8px;
+        height: 8px; }
+    .function-list .stroke-list:hover > ul {
+      display: flex; }
+  .function-list .removefeature, .function-list .annotation {
+    position: relative;
+    margin-bottom: 8px;
+    width: 40px;
+    height: 40px;
+    background-color: #424242;
+    border-radius: 2px;
+    cursor: pointer; }
+    @media screen and (min-width: 1920px) {
+      .function-list .removefeature, .function-list .annotation {
+        width: 60px;
+        height: 60px; } }
+    .function-list .removefeature svg, .function-list .annotation svg {
+      padding: 25%;
+      width: 100%;
+      height: 100%; }
+      .function-list .removefeature svg .cls-1, .function-list .removefeature svg .cls-2, .function-list .annotation svg .cls-1, .function-list .annotation svg .cls-2 {
+        stroke: #f7f7f7; }
+    .function-list .removefeature, .function-list .annotation {
+      text-align: center; }
+    .function-list .removefeature:hover svg .cls-1, .function-list .removefeature:hover svg .cls-2, .function-list .removefeature svg.active .cls-1, .function-list .removefeature svg.active .cls-2, .function-list .annotation:hover svg .cls-1, .function-list .annotation:hover svg .cls-2, .function-list .annotation svg.active .cls-1, .function-list .annotation svg.active .cls-2 {
+      stroke: #ff5252; }
 
 .annotation-menu {
   display: none;
@@ -655,3 +732,5 @@ ul.geometry_menu {
     left: auto; }
     .btn-group .dropdown-menu li + li {
       border-top: 1px solid #bdbdbd; }
+
+/*# sourceMappingURL=diagnose_index.css.map */

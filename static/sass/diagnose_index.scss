@@ -92,20 +92,8 @@ ul.geometry_menu {
     top: calc(14.6% + 490px);
   }
 
-  $list-space: 70px;
   .color-list {
-    position: relative;
-    margin-bottom: 8px;
-    width: 40px;
-    height: 40px;
-    @media screen and (min-width: 1920px) {
-      width: 60px;
-      height: 60px;
-    }
-    background-color: $black-1;
-    border-radius:2px;
-    cursor: pointer;
-    @include svg;
+    @include function-item;
     &:hover svg {
       .cls-1,.cls-2 {
         stroke: $white;
@@ -163,11 +151,54 @@ ul.geometry_menu {
       display: flex;
     }
   }
-  .annotation {
-    @extend .color-list;
+  .stroke-list {
+    @include function-item;
+    > ul {
+      position: absolute;
+      left: -300%;
+      display: none;
+      flex-direction: row-reverse;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 300%;
+      line-height: 100%;
+      li {
+        position: relative;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        .black_point {
+          border-radius: 50%;
+          @extend .my__center;
+          background-color: $black-1;
+        }
+        &:hover{
+          background-color: $black-1;
+          .black_point {
+            background-color: $white;
+          }
+        }
+      }
+      li:nth-of-type(1) > .black_point {
+        width: 2px;
+        height: 2px;
+      }
+      li:nth-of-type(2) > .black_point {
+        width: 5px;
+        height: 5px;
+      }
+      li:nth-of-type(3) > .black_point {
+        width: 8px;
+        height: 8px;
+      }
+    }
+    &:hover > ul {
+      display: flex;
+    }
   }
-  .removefeature {
-    @extend .color-list;
+  .removefeature, .annotation {
+    @include function-item;
     // top: 2 * $list-space;
   }
 }
